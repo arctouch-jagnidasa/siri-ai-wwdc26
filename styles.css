@@ -2038,11 +2038,13 @@ pre code {
 .resources {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  /* Rows hug their cards; the pair of rows is then centred in the slide. */
+  grid-auto-rows: min-content;
   gap: 0.85rem;
   flex: 1;
   min-height: 0;
-  align-content: stretch;
+  align-content: center;
+  align-items: start;
 }
 
 .resource {
@@ -2050,7 +2052,6 @@ pre code {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  min-height: 0;
   background: #fff;
   border: 1px solid var(--bg-secondary);
   border-radius: var(--radius);
@@ -2084,9 +2085,10 @@ pre code {
 .resource__thumb {
   display: block;
   width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 0 0 auto;
   height: auto;
+  /* Cap the preview on short windows so the card still hugs its text. */
+  max-height: 22vh;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center top;
