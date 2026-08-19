@@ -1990,7 +1990,7 @@ pre code {
   font-weight: 800;
   font-size: 1.35rem;
   line-height: 1;
-  padding: 0.85rem 1.1rem 0.55rem;
+  padding: 1.15rem 1.1rem 0.75rem;
   color: var(--grey-mild);
   background: var(--bg-secondary);
   border-radius: var(--radius) var(--radius) 0 0;
@@ -2005,7 +2005,7 @@ pre code {
 
 .takeaway h2 {
   margin: 0;
-  padding: 0.85rem 1.1rem 0.35rem;
+  padding: 1.15rem 1.1rem 0.5rem;
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 800;
@@ -2014,7 +2014,7 @@ pre code {
 
 .takeaway p {
   margin: 0;
-  padding: 0 1.1rem 1.1rem;
+  padding: 0 1.1rem 1.45rem;
   color: var(--grey-mild);
   line-height: 1.45;
   font-size: 0.92rem;
