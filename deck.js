@@ -5,6 +5,7 @@
   const prevBtn = document.getElementById("prev");
   const nextBtn = document.getElementById("next");
   const progress = document.getElementById("progress");
+  const picker = document.getElementById("slide-picker");
   const hint = document.getElementById("hint");
   let index = 0;
   let animating = false;
@@ -13,6 +14,21 @@
   const start = Number(params.get("slide"));
   if (Number.isFinite(start) && start >= 1 && start <= slides.length) {
     index = start - 1;
+  }
+
+  function slideLabel(slide, i) {
+    const title = slide.querySelector("h1")?.innerText?.replace(/\s+/g, " ").trim() || `Slide ${i + 1}`;
+    const n = String(i + 1).padStart(2, "0");
+    return `${n} · ${title}`;
+  }
+
+  if (picker) {
+    slides.forEach((slide, i) => {
+      const option = document.createElement("option");
+      option.value = String(i);
+      option.textContent = slideLabel(slide, i);
+      picker.appendChild(option);
+    });
   }
 
   function setTrack(offsetPercent, animate = true) {
@@ -34,28 +50,45 @@
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === slides.length - 1;
     progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+    if (picker) picker.value = String(index);
     const url = new URL(window.location.href);
     url.searchParams.set("slide", String(index + 1));
     history.replaceState(null, "", url);
     document.title = `${slides[index].querySelector("h1")?.innerText || "Deck"} — ArcTouch`;
   }
 
-  function go(delta) {
+  function goTo(next, animate = true) {
     if (animating) return;
-    const next = Math.min(slides.length - 1, Math.max(0, index + delta));
-    if (next === index) return;
+    const target = Math.min(slides.length - 1, Math.max(0, next));
+    if (target === index) {
+      render(false);
+      return;
+    }
     animating = true;
-    index = next;
-    render(true);
+    index = target;
+    render(animate);
     window.setTimeout(() => {
       animating = false;
     }, 560);
   }
 
+  function go(delta) {
+    goTo(index + delta, true);
+  }
+
   prevBtn.addEventListener("click", () => go(-1));
   nextBtn.addEventListener("click", () => go(1));
 
+  if (picker) {
+    picker.addEventListener("change", () => {
+      goTo(Number(picker.value), true);
+    });
+  }
+
   document.addEventListener("keydown", (event) => {
+    const tag = event.target?.tagName;
+    if (tag === "SELECT" || tag === "INPUT" || tag === "TEXTAREA") return;
+
     if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
       event.preventDefault();
       go(1);
@@ -63,11 +96,9 @@
       event.preventDefault();
       go(-1);
     } else if (event.key === "Home") {
-      index = 0;
-      render(true);
+      goTo(0, true);
     } else if (event.key === "End") {
-      index = slides.length - 1;
-      render(true);
+      goTo(slides.length - 1, true);
     } else if (event.key === "f" || event.key === "F") {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen?.();

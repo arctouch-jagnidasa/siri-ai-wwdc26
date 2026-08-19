@@ -6,7 +6,7 @@ Handoff document for continuing work on the ArcTouch-branded HTML presentation. 
 
 | Path | Role |
 |------|------|
-| `index.html` | All slide markup (13 slides inside `#track`) |
+| `index.html` | All slide markup (11 slides inside `#track`) |
 | `styles.css` | ArcTouch tokens, layout, slide components |
 | `deck.js` | Horizontal carousel navigation, deep links, Swift highlighting |
 | `assets/` | Logos, illustrations, screenshots |
@@ -67,7 +67,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 <section class="slide" data-slide="N" aria-label="Slide N">
   <div class="slide__chrome">
     <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-    <span class="slide__count">NN / 13</span>
+    <span class="slide__count">NN / 11</span>
   </div>
   <header class="slide__header">
     <h1>Title with <span class="accent">emphasis</span></h1>
@@ -82,7 +82,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 | Class | Use |
 |-------|-----|
 | `slide--hero` | Slide 1 only. Orange gradient background. Use `logo--light` (orange-background SVG). No hero image currently. |
-| `slide--closing` | Slide 13. Closing blueprint layout + tagline. |
+| `slide--closing` | Optional closing layout + tagline (unused after Integration Blueprint removal). |
 | `is-active` | Set on slide 1 in HTML; toggled by JS. Do not rely on it in CSS for layout. |
 
 ### Typography helpers
@@ -100,7 +100,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 | Slide | Logo file | Class |
 |-------|-----------|-------|
 | 1 (hero) | `ArcTouch-logotype-color-orange-background-RGB.svg` | `logo logo--light` |
-| 2–13 | `ArcTouch-logotype-color-white-background-RGB.svg` | `logo` |
+| 2–12 | `ArcTouch-logotype-color-white-background-RGB.svg` | `logo` |
 
 ---
 
@@ -119,23 +119,21 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 ---
 
-## Slide inventory (13 slides)
+## Slide inventory (11 slides)
 
 | # | Comment | Title (h1) | Layout pattern | Key classes / assets |
 |---|---------|--------------|----------------|----------------------|
 | 1 | Title | Siri Got Smarter | Hero, title-only | `slide--hero`, `.hero`, `.eyebrow` |
-| 2 | Why it matters | From nested screens to a conversation | Two-column UX compare | `.compare.compare--ux`, `.ux-steps` |
-| 3 | Snippets | What a short chat can achieve | Screenshot gallery | `.shot-gallery`, `.shot`, `.shot-notes` |
-| 4 | Inclusive | More inclusive by design | 2×2 card grid | `.inclusive-grid`, `.inclusive-card`, Phosphor icons |
-| 5 | Gateway | The Gateway to system experiences | Diagram + spoke list | `.split.split--visual`, `.fig--frame`, `.hub__spokes--stack`, `.spoke` |
+| 2 | Siri AI upgrades | Siri got smarter with Apple Intelligence | 3 inclusive cards | `.inclusive-grid--three`, `.inclusive-card`, Phosphor icons |
+| 3 | Gateway | The Gateway to system experiences | Diagram + spoke list | `.split.split--visual`, `.fig--frame`, `.hub__spokes--stack`, `.spoke` |
+| 4 | Why it matters | From nested screens to a conversation | Two-column UX compare | `.compare.compare--ux`, `.ux-steps` |
+| 5 | Inclusive | More inclusive by design | 2×2 card grid | `.inclusive-grid`, `.inclusive-card`, Phosphor icons |
 | 6 | Trinity | The Foundational Trinity | Icon + stacked cards | `.split--visual-left`, `.trinity--compact`, `.card--primary/top-grey/top-soft` |
-| 7 | Two paths | Two Paths: Schemas and Custom Intents | Two-column definition lists | `.compare`, `compare__col--legacy/new`, `<dl>` |
-| 8 | Taxonomy | The Schema Taxonomy Map | Two regions + chip groups | `.taxonomy.taxonomy--two`, `.chip-groups`, `.chip--new/expanded` |
-| 9 | Semantic bridge | Implementing the Semantic Bridge | Code before/after | `.bridge`, `.code-panel`, Swift in `<pre><code>` |
-| 10 | Orchestration | Multi-App Orchestration | Icon + flow + cards | `.flow-row--stacked`, `.orchestrate`, `icon-orchestration.png` |
-| 11 | Edge case | What if nothing fits a schema? | Vertical callouts | `.stack`, `.callout`, `.callout--warn` |
-| 12 | Custom intents | Custom Intents Still Count | Icon + three cards | `.split--visual-left`, `icon-shortcuts-spotlight.png` |
-| 13 | Blueprint | The Integration Blueprint | Numbered steps + tagline | `slide--closing`, `.blueprint`, `.closing-line` |
+| 7 | Taxonomy | Schema Domains | Two regions + chip groups | `.taxonomy.taxonomy--two`, `.chip-groups`, `.chip--new/expanded` |
+| 8 | Semantic bridge | Implementing the Semantic Bridge | Two equal code panels | `.bridge`, `.code-panel`, Swift in `<pre><code>` |
+| 9 | Orchestration | Multi-App Orchestration | Screenshot trio + flow + cards | `.shot-pair`, `.flow-row--stacked`, `.orchestrate` |
+| 10 | Edge case | What if nothing fits a schema? | Vertical callouts | `.stack`, `.callout`, `.callout--warn` |
+| 11 | Custom intents | Custom Intents Still Count | Screenshot trio + three cards | `.split--visual-left`, `.shot-pair` |
 
 ### Removed slides (do not re-add without intent)
 
@@ -144,11 +142,14 @@ These were in the original PPTX flow and were deleted or merged:
 | Former topic | Fate |
 |--------------|------|
 | Notes Domain Anatomy | Removed |
-| Snippet Views (standalone) | Merged into slide 3 |
+| Snippet Views (standalone) | Merged into the snippets slide, then removed |
+| Snippets (“What a short chat can achieve”) | Removed |
+| Two Paths: Schemas and Custom Intents | Removed |
 | Managing Execution Contexts | Removed |
 | Photos & Files | Removed |
+| Integration Blueprint | Removed |
 
-Current deck: **13 slides** (was 15).
+Current deck: **11 slides** (was 10).
 
 ---
 
@@ -159,21 +160,21 @@ Current deck: **13 slides** (was 15).
 | Class | Description |
 |-------|-------------|
 | `.split` | Generic two-column flex |
-| `.split--visual` | Image left, content right (slide 5). Image uses `object-fit: contain` — do not switch to `cover` or diagram overlaps header. |
-| `.split--visual-left` | Icon/illustration left, cards right (slides 6, 10, 12) |
-| `.split--paths` | Variant for path comparison (unused on slide 7 currently) |
-| `.stack` | Vertical stack of callouts (slide 11) |
+| `.split--visual` | Image left, content right (slide 3). Image uses `object-fit: contain` — do not switch to `cover` or diagram overlaps header. |
+| `.split--visual-left` | Icon/illustration left, cards right (slides 6, 9, 11) |
+| `.split--paths` | Variant for path comparison (unused currently) |
+| `.stack` | Vertical stack of callouts (slide 10) |
 
-### Compare columns (slides 2, 7)
+### Compare columns (slide 4)
 
 ```html
-<div class="compare"> <!-- or compare--ux for slide 2 -->
+<div class="compare"> <!-- or compare--ux for slide 4 -->
   <div class="compare__col compare__col--legacy">…</div>
   <div class="compare__col compare__col--new">…</div>
 </div>
 ```
 
-Slide 2 uses ordered lists (`.ux-steps`); slide 7 uses `<dl>` with `<dt>`/`<dd>` rows.
+Slide 4 uses ordered lists (`.ux-steps`). The `.compare` / `<dl>` two-paths pattern remains in CSS for reuse.
 
 ### Cards
 
@@ -190,7 +191,7 @@ Base: `.card` with optional modifiers:
 
 Meta label: `.card__meta` — often includes `<i class="ph ph-…">`.
 
-### Inclusive grid (slide 4)
+### Inclusive grid (slides 2 and 5)
 
 ```html
 <article class="card inclusive-card">
@@ -207,14 +208,14 @@ Meta label: `.card__meta` — often includes `<i class="ph ph-…">`.
 
 White cards, large orange Phosphor icon left, body right.
 
-### Gateway hub (slide 5)
+### Gateway hub (slide 3)
 
 - `.fig.fig--frame` wraps Apple diagram
 - `.hub__spokes.hub__spokes--stack` — vertical list
 - `.spoke` / `.spoke--featured` — icon + `.spoke__label`
 - Diagram file: `assets/illustrations/app-intents-framework.png` (cache-bust with `?v=N` when replacing)
 
-### Taxonomy chips (slide 8)
+### Taxonomy chips (slide 7)
 
 ```html
 <div class="chip-groups">
@@ -231,9 +232,9 @@ White cards, large orange Phosphor icon left, body right.
 - `chip--expanded` — expanded styling + "Expanded" badge
 - Plain `<li>` — "Since iOS 18" domains
 - `.chips--soft` — shortcuts-restricted domains (right column)
-- `.chip-legend` exists in CSS but was removed from slide 8
+- `.chip-legend` exists in CSS but was removed from slide 7
 
-### Code bridge (slide 9)
+### Code bridge (slide 8)
 
 ```html
 <div class="bridge">
@@ -245,20 +246,27 @@ White cards, large orange Phosphor icon left, body right.
 
 Use `class="language-swift"` on `<code>` inside `<pre>`. `deck.js` runs `hljs.highlightElement` on load.
 
-### Screenshots (slide 3)
+### Screenshots (slides 9 and 11)
 
 ```html
-<figure class="shot">
-  <img src="assets/screenshots/…" alt="…" />
-  <figcaption><span>Short label</span> Longer explanation.</figcaption>
-</figure>
+<div class="shot-pair">
+  <figure class="shot-pair__item">
+    <img src="assets/screenshots/…" alt="…" />
+  </figure>
+</div>
 ```
 
-Gallery: `.shot-gallery` (4-up grid). Footer bullets: `.shot-notes`.
+`.shot-pair` is a 3-up captionless grid used as the visual column of a
+`.split--visual-left` slide: 14px radius, natural aspect ratio, vertically
+centred. Each slide using it needs its `.split--visual-left` row capped
+(`grid-template-rows: minmax(0, 1fr)`) so centring stays inside the slide.
 
-### Closing blueprint (slide 13)
+`.shot-gallery`, `.shot` and `.shot-notes` (captioned gallery) are no longer used
+by any slide — safe to reuse.
 
-`.blueprint` → `.blueprint__step` with `.blueprint__n` (01, 02, 03). Featured step: `.blueprint__step--featured`. Tagline: `.closing-line`.
+### Closing blueprint (unused)
+
+CSS still defines `.blueprint` → `.blueprint__step` with `.blueprint__n`, `.blueprint__step--featured`, and `.closing-line` after the Integration Blueprint slide was removed. Safe to reuse if adding a closing slide.
 
 ### Legacy / unused in current deck
 
@@ -330,23 +338,29 @@ First paint: `render(false)` jumps to deep-linked slide without animation.
 
 | File | Used on |
 |------|---------|
-| `app-intents-framework.png` | Slide 5 (Apple “Getting Started with App Intents” diagram) |
-| `icon-trinity.png` | Slide 6 |
-| `icon-orchestration.png` | Slide 10 |
-| `icon-shortcuts-spotlight.png` | Slide 12 |
+| `app-intents-framework.png` | Slide 4 (Apple “Getting Started with App Intents” diagram) |
+| `icon-trinity.png` | Slide 5 |
+| `icon-orchestration.png` | Not currently referenced |
+| `icon-shortcuts-spotlight.png` | Not currently referenced (was slide 10) |
 | `icon-schemas.png`, `icon-snippets.png` | Not currently referenced |
 | `hero-siri-*.png` | Legacy hero experiments; slide 1 is title-only |
 
 ### Screenshots (`assets/screenshots/`)
 
-Active on slide 3:
+Active on slide 11:
 
-- `snippet-entity-in-siri.png`
-- `snippet-confirm-send.png`
+- `snippet-result-landmark-siri.png` (Siri answering “Find closest landmark in traveltracking”)
 - `snippet-result-landmark.png`
 - `snippet-confirm-tickets.png`
 
-`assets/screenshots/extracted/` — raw PDF/PPTX extractions; reference only.
+Active on slide 9:
+
+- `snippet-entity-in-siri.png`
+- `snippet-confirm-send.png`
+- `extracted/p04-003.png` (app picker on the confirmation snippet)
+
+`assets/screenshots/extracted/` — raw PDF/PPTX extractions; reference only, except
+`p04-003.png` which slide 9 uses directly.
 
 When replacing images, keep descriptive `alt` text (accessibility + presenter notes).
 
@@ -354,7 +368,7 @@ When replacing images, keep descriptive `alt` text (accessibility + presenter no
 
 ## Content rules (verified against blog PDF)
 
-Use these labels consistently on slide 8 and in copy:
+Use these labels consistently on slide 7 and in copy:
 
 **Primary domains (Siri chat):**
 
@@ -380,11 +394,11 @@ Terminology:
 
 Edit `h1` (and optional `.lede`) inside `.slide__header`. Accent phrase goes in `<span class="accent">`.
 
-### Add a screenshot to slide 3
+### Add a screenshot to slide 9 or 11
 
-Drop PNG in `assets/screenshots/`, add a `<figure class="shot">` inside `.shot-gallery`. Adjust grid in `.shot-gallery` CSS if count ≠ 4.
+Drop PNG in `assets/screenshots/`, add a `<figure class="shot-pair__item">` inside `.shot-pair`. Adjust `grid-template-columns` in `.shot-pair` CSS if count ≠ 3.
 
-### Replace slide 5 diagram
+### Replace slide 3 diagram
 
 Overwrite `assets/illustrations/app-intents-framework.png`, bump query string in `src` (e.g. `?v=3`). Confirm `object-fit: contain` in `.split--visual .fig img` — diagram must fit without cropping into header.
 
@@ -398,7 +412,7 @@ Copy an existing `<li>` in the appropriate `.chip-group`. Match icon + badge cla
 <pre><code class="language-swift">…</code></pre>
 ```
 
-Wrap in `.code-panel` if matching slide 9 styling.
+Wrap in `.code-panel` if matching slide 8 styling.
 
 ---
 
@@ -411,8 +425,8 @@ After structural edits:
 - [ ] Only slide 1 has `slide--hero` and orange logo
 - [ ] `?slide=1` and `?slide=N` load correct slides
 - [ ] Progress bar fills correctly on last slide
-- [ ] Slide 5 diagram does not overlap title on laptop + large display
-- [ ] Swift blocks on slide 9 show syntax colors
+- [ ] Slide 4 diagram does not overlap title on laptop + large display
+- [ ] Swift blocks on slide 8 show syntax colors
 - [ ] Phosphor icons render (font loaded)
 - [ ] No horizontal overflow on 1280×720 and 1920×1080
 
@@ -421,8 +435,8 @@ After structural edits:
 ## Gotchas
 
 1. **Inline vs block code:** `:not(pre) > code` styles inline chips; `pre code` must stay unstyled for highlight.js.
-2. **Slide 5 sizing:** Constrain with `.split--visual .fig img { object-fit: contain; }` — filling caused header overlap.
-3. **HTML comments are stale:** Some comments say `<!-- 3. Foundational Trinity -->` on slide 6, etc. — cosmetic only.
+2. **Slide 4 sizing:** Constrain with `.split--visual .fig img { object-fit: contain; }` — filling caused header overlap.
+3. **HTML comments track slide order:** The `<!-- N. Title -->` comments are renumbered whenever slides are added or removed; keep them in sync with `data-slide` (cosmetic only).
 4. **README slide count:** Keep in sync with this doc when slides change.
 5. **Git:** Do not commit unless explicitly requested.
 

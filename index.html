@@ -1,519 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WWDC 26: Siri AI — ArcTouch</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="vendor/phosphor/style.css" />
   <script src="vendor/highlight.min.js" defer></script>
   <script src="vendor/swift.min.js" defer></script>
 </head>
+
 <body>
   <div class="deck" id="deck" aria-live="polite">
     <div class="deck__track" id="track">
-
-    <!-- 1. Title -->
-    <section class="slide slide--hero is-active" data-slide="1" aria-label="Slide 1">
-      <div class="slide__chrome">
-        <img class="logo logo--light" src="assets/ArcTouch-logotype-color-orange-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">01 / 13</span>
-      </div>
-      <div class="hero">
-        <p class="eyebrow">WWDC 26 · Siri AI</p>
-        <h1>Siri Got Smarter</h1>
-        <p class="hero__sub">Your App Can Get More Inclusive</p>
-      </div>
-    </section>
-
-    <!-- 2. Why it matters — conversation over taps -->
-    <section class="slide" data-slide="2" aria-label="Slide 2">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">02 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>From nested screens to <span class="accent">a conversation</span></h1>
-        <p class="lede">App Intents let people finish real tasks through natural language with Siri instead of going through your app's UI.</p>
-      </header>
-      <div class="compare compare--ux">
-        <div class="compare__col compare__col--legacy">
-          <h2>Without App Intents<br /></h2>
-          <ol class="ux-steps">
-            <li>Find and open the app</li>
-            <li>Navigate to the right screen</li>
-            <li>Locate the item or action</li>
-            <li>Tap through forms and confirmations</li>
-          </ol>
+      <!-- 1. Title -->
+      <section class="slide slide--hero is-active" data-slide="1" aria-label="Slide 1">
+        <div class="slide__chrome">
+          <img class="logo logo--light" src="assets/ArcTouch-logotype-color-orange-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">01 / 11</span>
         </div>
-        <div class="compare__col compare__col--new">
-          <h2>With App Intents<br /></h2>
-          <ol class="ux-steps">
-            <li>Ask in natural language or Type to Siri</li>
-            <li>Done! A Snippet SwiftUI view shows the information the user asked for or a confirmation of the action, allowing edits as well.</li>
-          </ol>
+        <div class="hero">
+          <p class="eyebrow">WWDC 26 · Siri AI</p>
+          <h1>Siri Got Smarter</h1>
+          <p class="hero__sub">Your App Can Get More Inclusive</p>
         </div>
-      </div>
-    </section>
-
-    <!-- 3. What conversations unlock (+ snippets) -->
-    <section class="slide" data-slide="3" aria-label="Slide 3">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">03 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>What a short chat <span class="accent">can achieve</span></h1>
-        <p class="lede">Expose the right intents and entities and Siri becomes a front door. Finishing tasks in branded snippets without even opening your app.</p>
-      </header>
-      <div class="shot-gallery">
-        <figure class="shot">
-          <img src="assets/screenshots/snippet-entity-in-siri.png" alt="Siri showing a branded calendar event entity card for an iOS D&amp;I Committee meeting" />
-          <figcaption><span>“Send this event to John.”</span> On-screen entity. Siri can understand "this event" or "the 3rd one" when views are associated to an Entity.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/screenshots/snippet-confirm-send.png" alt="Confirmation snippet to send a calendar event to John Doe via Messages" />
-          <figcaption><span>Confirm, then send</span> Review the recipient and which app to use.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/screenshots/snippet-result-landmark.png" alt="TravelTracking Niagara Falls snippet with ticket quantity prompt" />
-          <figcaption><span>“Find the closest landmark”</span> It's possible to trigger shortcuts through Siri and show snippets for them.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/screenshots/snippet-confirm-tickets.png" alt="Confirmation snippet to book Niagara Falls tickets with price and Book Now" />
-          <figcaption><span>Chained intents</span> An intent can trigger another and streamline interactions.</figcaption>
-        </figure>
-      </div>
-      <ul class="shot-notes">
-        <li><strong>Result snippets</strong> show the answer.</li>
-        <li><strong>Confirmation snippets</strong> collect input before acting.</li>
-      </ul>
-    </section>
-
-    <!-- 4. Inclusive by design -->
-    <section class="slide" data-slide="4" aria-label="Slide 4">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">04 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>More inclusive <span class="accent">by design</span></h1>
-        <p class="lede">Simplifying the path to your features isn’t only convenience — it widens who can use them successfully.</p>
-      </header>
-      <div class="inclusive-grid">
-        <article class="card inclusive-card">
-          <div class="inclusive-card__lead">
-            <i class="ph ph-microphone" aria-hidden="true"></i>
-            <p class="card__meta">Voice &amp; type</p>
-          </div>
-          <div class="inclusive-card__body">
-            <h2>Lower the physical cost</h2>
-            <p>Speak or Type to Siri instead of precise taps through dense UI — helpful for motor, vision, and situational constraints.</p>
-          </div>
-        </article>
-        <article class="card inclusive-card">
-          <div class="inclusive-card__lead">
-            <i class="ph ph-path" aria-hidden="true"></i>
-            <p class="card__meta">Cognitive load</p>
-          </div>
-          <div class="inclusive-card__body">
-            <h2>Skip the maze</h2>
-            <p>People ask for outcomes (“send,” “find,” “book”) without learning your information architecture.</p>
-          </div>
-        </article>
-        <article class="card inclusive-card">
-          <div class="inclusive-card__lead">
-            <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
-            <p class="card__meta">Visibility</p>
-          </div>
-          <div class="inclusive-card__body">
-            <h2>Surface buried value</h2>
-            <p>Features stop living only for users who already know where to look: Siri can invite them in.</p>
-          </div>
-        </article>
-        <article class="card inclusive-card">
-          <div class="inclusive-card__lead">
-            <i class="ph ph-handshake" aria-hidden="true"></i>
-            <p class="card__meta">Trust</p>
-          </div>
-          <div class="inclusive-card__body">
-            <h2>Stay in the handoff</h2>
-            <p>Snippets can be designed to keep the app's personality and confirm important steps. Allowing Siri to drive the experience doesn't mean losing control or clarity.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- 5. Gateway -->
-    <section class="slide" data-slide="5" aria-label="Slide 5">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">05 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>The Gateway to <span class="accent">system experiences</span></h1>
-        <p class="lede"><span class="accent">App Intents</span> provide the centralized infrastructure to make your content accessible, queryable, and actionable across the entire Apple ecosystem.</p>
-      </header>
-      <div class="split split--visual">
-        <figure class="fig fig--frame">
-          <img src="assets/illustrations/app-intents-framework.png?v=2" alt="Diagram: Actions and Intents plus Content and Entities flow into Apple Intelligence, then to Shortcuts, Siri, and Spotlight" />
-        </figure>
-        <ul class="hub__spokes hub__spokes--stack">
-          <li class="spoke spoke--featured">
-            <i class="ph ph-sparkle" aria-hidden="true"></i>
-            <span class="spoke__label">Apple Intelligence &amp; Siri</span>
-          </li>
-          <li class="spoke">
-            <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
-            <span class="spoke__label">Spotlight Integration</span>
-          </li>
-          <li class="spoke">
-            <i class="ph ph-lightning" aria-hidden="true"></i>
-            <span class="spoke__label">Shortcuts App</span>
-          </li>
-          <li class="spoke">
-            <i class="ph ph-squares-four" aria-hidden="true"></i>
-            <span class="spoke__label">Widgets &amp; Live Activities</span>
-          </li>
-          <li class="spoke">
-            <i class="ph ph-device-mobile" aria-hidden="true"></i>
-            <span class="spoke__label">Hardware Buttons</span>
-          </li>
-          <li class="spoke">
-            <i class="ph ph-eye" aria-hidden="true"></i>
-            <span class="spoke__label">Visual Intelligence</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 3. Foundational Trinity -->
-    <section class="slide" data-slide="6" aria-label="Slide 6">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">06 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>The Foundational <span class="accent">Trinity</span></h1>
-      </header>
-      <div class="split split--visual-left">
-        <figure class="fig fig--icon">
-          <img src="assets/illustrations/icon-trinity.png" alt="3D illustration of intents, entities, and enums as interlocking clay blocks" />
-        </figure>
-        <div class="trinity trinity--compact">
-          <article class="card card--primary">
-            <p class="card__meta"><i class="ph ph-gear-six" aria-hidden="true"></i> The Verbs</p>
-            <h2>App Intents</h2>
-            <p>Defines the actions your app can perform and the parameters required to execute them (e.g., <code>create</code>, <code>delete</code>, <code>send</code>).</p>
+      </section>
+      <!-- 2. Siri AI upgrades -->
+      <section class="slide" data-slide="2" aria-label="Slide 2">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">02 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>Siri got smarter on <span class="accent">iOS 27</span></h1>
+          <p class="lede">The technical improvements introduced with Gemini in the new Apple Intelligence generation now allow Siri to handle personal context and on-screen awareness to provide richer app actions.</p>
+        </header>
+        <div class="inclusive-grid inclusive-grid--three">
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-user-focus" aria-hidden="true"></i>
+              <p class="card__meta">Personal context</p>
+            </div>
+            <div>
+              <h2>Understands what users mean</h2>
+              <p>Search across messages, emails, photos, and more so Siri can act on personal context and not just the words in a single request.</p>
+            </div>
           </article>
-          <article class="card card--top-grey">
-            <p class="card__meta"><i class="ph ph-cube" aria-hidden="true"></i> The Nouns</p>
-            <h2>App Entities</h2>
-            <p>Lightweight representations of your app’s data objects. Requires an identifier and a query object to allow system retrieval.</p>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-eye" aria-hidden="true"></i>
+              <p class="card__meta">On-screen awareness</p>
+            </div>
+            <div>
+              <h2>Sees what’s on screen</h2>
+              <p>Answer questions about the content in front of someone and take action on it: “this event,” “that photo,” the thing they’re looking at.</p>
+            </div>
           </article>
-          <article class="card card--top-soft">
-            <p class="card__meta"><i class="ph ph-list-bullets" aria-hidden="true"></i> The Finite Adjectives</p>
-            <h2>App Enums</h2>
-            <p>Static types defining constants with special meaning (e.g., clothing sizes, calendar RSVP statuses). Backed by <code>String</code> and <code>RawRepresentable</code>.</p>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-arrows-left-right" aria-hidden="true"></i>
+              <p class="card__meta">App actions</p>
+            </div>
+            <div>
+              <h2>Gets work done across apps</h2>
+              <p>More systemwide actions let Siri coordinate and finish tasks by gathering features from multiple apps.</p>
+            </div>
           </article>
         </div>
-      </div>
-    </section>
-
-    <!-- 4. Paradigm Shift -->
-    <section class="slide" data-slide="7" aria-label="Slide 7">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">07 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>Two Paths: <span class="accent">Schemas and Custom Intents</span></h1>
-        <p class="lede">App Schemas unlock native Siri reasoning. Custom App Intents still matter today for Shortcuts, Spotlight, Control Center, and chained snippet journeys.</p>
-      </header>
-      <div class="compare">
-        <div class="compare__col compare__col--legacy">
-          <h2>Custom App Intents<br /><span>Shortcuts · Spotlight · Control Center</span></h2>
-          <dl>
-            <div>
-              <dt>Mechanism</dt>
-              <dd>Expose actions and entities without conforming to a system schema.</dd>
-            </div>
-            <div>
-              <dt>Discovery</dt>
-              <dd>Strong for Shortcuts, Spotlight, widgets, and Control Center — including shortcuts Siri can help create.</dd>
-            </div>
-            <div>
-              <dt>Use Case</dt>
-              <dd>Niche features, product-specific flows, and work that does not map to an Apple domain yet.</dd>
-            </div>
-            <div>
-              <dt>Siri Chat</dt>
-              <dd>Often phrase- or shortcut-triggered. Less native natural-language reasoning than schema-backed intents.</dd>
-            </div>
-          </dl>
+      </section>
+      <!-- 3. Gateway -->
+      <section class="slide" data-slide="3" aria-label="Slide 3">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">03 / 11</span>
         </div>
-        <div class="compare__col compare__col--new">
-          <h2>App Schemas<br /><span>The preferred baseline when a domain fits</span></h2>
-          <dl>
-            <div>
-              <dt>Mechanism</dt>
-              <dd>Conform to Apple’s pretrained vocabulary of intents, entities, and enums.</dd>
-            </div>
-            <div>
-              <dt>Discovery</dt>
-              <dd>Siri can reason about your features, ask for confirmation, and use conversational context.</dd>
-            </div>
-            <div>
-              <dt>Use Case</dt>
-              <dd>Map app actions to domains Apple already understands — Mail, Photos, Notes, Messages, and more.</dd>
-            </div>
-            <div>
-              <dt>Siri Chat</dt>
-              <dd>Unlocks natural-language resolution, on-screen awareness, and personal context.</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Schema Taxonomy -->
-    <section class="slide" data-slide="8" aria-label="Slide 8">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">08 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>The Schema <span class="accent">Taxonomy Map</span></h1>
-        <p class="lede">In iOS 27 betas, domains split into those Siri can reason about natively, and those still limited to Shortcuts.</p>
-      </header>
-      <div class="taxonomy taxonomy--two">
-        <article class="region region--1">
-          <h2>Primary Domains</h2>
-          <p>Fully usable with Apple Intelligence and Siri chat.</p>
-          <div class="chip-groups">
-            <div class="chip-group">
-              <p class="chip-group__label">New in iOS 27</p>
-              <ul class="chips">
-                <li class="chip--new"><i class="ph ph-speaker-high" aria-hidden="true"></i>Audio <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-calendar-blank" aria-hidden="true"></i>Calendar <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-clock" aria-hidden="true"></i>Clock <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-map-pin" aria-hidden="true"></i>Maps <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-chat-circle" aria-hidden="true"></i>Messages <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-note" aria-hidden="true"></i>Notes <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-phone" aria-hidden="true"></i>Phone <span class="chip__badge">New</span></li>
-                <li class="chip--new"><i class="ph ph-list-checks" aria-hidden="true"></i>Reminders <span class="chip__badge">New</span></li>
-              </ul>
-            </div>
-            <div class="chip-group">
-              <p class="chip-group__label">Expanded in iOS 27</p>
-              <ul class="chips">
-                <li class="chip--expanded"><i class="ph ph-envelope-simple" aria-hidden="true"></i>Mail <span class="chip__badge chip__badge--expanded">Expanded</span></li>
-                <li class="chip--expanded"><i class="ph ph-image" aria-hidden="true"></i>Photos <span class="chip__badge chip__badge--expanded">Expanded</span></li>
-                <li class="chip--expanded"><i class="ph ph-magnifying-glass" aria-hidden="true"></i>System &amp; in-app search <span class="chip__badge chip__badge--expanded">Expanded</span></li>
-              </ul>
-            </div>
-            <div class="chip-group">
-              <p class="chip-group__label">Since iOS 18</p>
-              <ul class="chips">
-                <li><i class="ph ph-camera" aria-hidden="true"></i>Camera</li>
-                <li><i class="ph ph-files" aria-hidden="true"></i>Files</li>
-              </ul>
-            </div>
-          </div>
-          <p class="region__callout"><strong>Full adoption required:</strong> Mail, Clock, and Messages — partial schema coverage is not enough.</p>
-        </article>
-        <article class="region region--2">
-          <h2>Shortcuts-Restricted Domains</h2>
-          <p>Intents and entities here are not referenced directly in a Siri conversation. They remain useful through Shortcuts.</p>
-          <ul class="chips chips--soft">
-            <li><i class="ph ph-book-open" aria-hidden="true"></i>Books</li>
-            <li><i class="ph ph-browser" aria-hidden="true"></i>Browser</li>
-            <li><i class="ph ph-notebook" aria-hidden="true"></i>Journaling</li>
-            <li><i class="ph ph-presentation" aria-hidden="true"></i>Presentation</li>
-            <li><i class="ph ph-article" aria-hidden="true"></i>Reader</li>
-            <li><i class="ph ph-table" aria-hidden="true"></i>Spreadsheet</li>
-            <li><i class="ph ph-chalkboard" aria-hidden="true"></i>Whiteboard</li>
-            <li><i class="ph ph-text-aa" aria-hidden="true"></i>Word Processor</li>
+        <header class="slide__header">
+          <h1>The Gateway to <span class="accent">system experiences</span></h1>
+          <p class="lede"><span class="accent">App Intents</span> provide the centralized infrastructure to make your
+            content accessible, queryable, and actionable across the entire Apple ecosystem.</p>
+        </header>
+        <div class="split split--visual">
+          <figure class="fig fig--frame">
+            <img src="assets/illustrations/app-intents-framework.png?v=2"
+              alt="Diagram: Actions and Intents plus Content and Entities flow into Apple Intelligence, then to Shortcuts, Siri, and Spotlight" />
+          </figure>
+          <ul class="hub__spokes hub__spokes--stack">
+            <li class="spoke spoke--featured">
+              <i class="ph ph-sparkle" aria-hidden="true"></i>
+              <span class="spoke__label">Apple Intelligence &amp; Siri</span>
+            </li>
+            <li class="spoke">
+              <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+              <span class="spoke__label">Spotlight Integration</span>
+            </li>
+            <li class="spoke">
+              <i class="ph ph-lightning" aria-hidden="true"></i>
+              <span class="spoke__label">Shortcuts App</span>
+            </li>
+            <li class="spoke">
+              <i class="ph ph-squares-four" aria-hidden="true"></i>
+              <span class="spoke__label">Widgets &amp; Live Activities</span>
+            </li>
+            <li class="spoke">
+              <i class="ph ph-device-mobile" aria-hidden="true"></i>
+              <span class="spoke__label">Hardware Buttons</span>
+            </li>
+            <li class="spoke">
+              <i class="ph ph-eye" aria-hidden="true"></i>
+              <span class="spoke__label">Visual Intelligence</span>
+            </li>
           </ul>
-        </article>
-      </div>
-    </section>
-
-    <!-- 6. Semantic Bridge -->
-    <section class="slide" data-slide="9" aria-label="Slide 9">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">09 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>Implementing the <span class="accent">Semantic Bridge</span></h1>
-        <p class="lede">Macros act as the bridge, automatically generating the required properties and protocol conformances to tie local data to global AI models.</p>
-      </header>
-      <div class="bridge">
-        <article class="code-panel">
-          <h2>Proprietary Code</h2>
-<pre><code class="language-swift">struct MyCustomNote {
-  var title: String
-  var body: String
-}</code></pre>
-        </article>
-        <div class="bridge__arrow" aria-hidden="true">→</div>
-        <article class="code-panel code-panel--adopted">
-          <h2>Schema Adopted</h2>
-<pre><code class="language-swift">@AppEntity(schema: .notes.note)
+        </div>
+      </section>
+      <!-- 4. Why it matters — conversation over taps -->
+      <section class="slide" data-slide="4" aria-label="Slide 4">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">04 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>From nested screens to <span class="accent">a conversation</span></h1>
+          <p class="lede">App Intents let people finish real tasks through natural language with Siri instead of going
+            through your app's UI.</p>
+        </header>
+        <div class="compare compare--ux">
+          <div class="compare__col compare__col--legacy">
+            <h2>Without App Intents<br /></h2>
+            <ol class="ux-steps">
+              <li>Find and open the app</li>
+              <li>Navigate to the right screen</li>
+              <li>Locate the item or action</li>
+              <li>Tap through forms and confirmations</li>
+            </ol>
+          </div>
+          <div class="compare__col compare__col--new">
+            <h2>With App Intents<br /></h2>
+            <ol class="ux-steps">
+              <li>Ask in natural language or Type to Siri</li>
+              <li>Done! A Snippet SwiftUI view shows the information the user asked for or a confirmation of the action,
+                allowing edits as well.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+      <!-- 5. Inclusive by design -->
+      <section class="slide" data-slide="5" aria-label="Slide 5">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">05 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>More inclusive <span class="accent">by design</span></h1>
+          <p class="lede">Simplifying the path to your features isn’t only convenience, it widens who can use them
+            successfully.</p>
+        </header>
+        <div class="inclusive-grid">
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-microphone" aria-hidden="true"></i>
+              <p class="card__meta">Voice &amp; type</p>
+            </div>
+            <div class="inclusive-card__body">
+              <h2>Lower the physical cost</h2>
+              <p>Speak or Type to Siri instead of precise taps through dense UI. Helpful for motor, vision, and
+                situational constraints.</p>
+            </div>
+          </article>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-path" aria-hidden="true"></i>
+              <p class="card__meta">Cognitive load</p>
+            </div>
+            <div class="inclusive-card__body">
+              <h2>Skip the maze</h2>
+              <p>People can ask for direct outcomes (“send”, “find”, “update”) rather than needing to memorize your information architecture.</p>
+            </div>
+          </article>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-sketch-logo" aria-hidden="true"></i>
+              <p class="card__meta">Discoverability</p>
+            </div>
+            <div class="inclusive-card__body">
+              <h2>Surface buried value</h2>
+              <p>Features stop living only for users who already know where to look: Siri can invite them in.</p>
+            </div>
+          </article>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-handshake" aria-hidden="true"></i>
+              <p class="card__meta">Trust</p>
+            </div>
+            <div class="inclusive-card__body">
+              <h2>Stay in the handoff</h2>
+              <p>Snippets can be designed to keep the app's personality and confirm important steps. Allowing Siri to
+                drive the experience doesn't mean losing control or clarity.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <!-- 6. Foundational Trinity -->
+      <section class="slide" data-slide="6" aria-label="Slide 6">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">06 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>The Foundational <span class="accent">Trinity</span></h1>
+        </header>
+        <div class="split split--visual-left">
+          <figure class="fig fig--icon">
+            <img src="assets/illustrations/icon-trinity.png"
+              alt="3D illustration of intents, entities, and enums as interlocking clay blocks" />
+          </figure>
+          <div class="trinity trinity--compact">
+            <article class="card card--primary">
+              <p class="card__meta"><i class="ph ph-gear-six" aria-hidden="true"></i> The Verbs</p>
+              <h2>App Intents</h2>
+              <p>Defines the actions your app can perform and the parameters required to execute them.</br>(e.g.,
+                <code>create</code>, <code>delete</code>, <code>send</code>).</p>
+            </article>
+            <article class="card card--top-grey">
+              <p class="card__meta"><i class="ph ph-cube" aria-hidden="true"></i> The Nouns</p>
+              <h2>App Entities</h2>
+              <p>Lightweight representations of your app’s data objects.</br>Requires an identifier and a query object
+                to allow system retrieval.</p>
+            </article>
+            <article class="card card--top-soft">
+              <p class="card__meta"><i class="ph ph-list-checks" aria-hidden="true"></i> The Finite Adjectives</p>
+              <h2>App Enums</h2>
+              <p>Static types defining constants with special meaning (e.g., types of messages, calendar RSVP
+                statuses).</br>Backed by <code>String</code> and <code>RawRepresentable</code>.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <!-- 7. Schema Taxonomy -->
+      <section class="slide" data-slide="7" aria-label="Slide 7">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">07 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>App <span class="accent">Schemas</span> and Schema <span class="accent">Domains</span></h1>
+          <p class="lede">Schemas are a set of well-known <code>Intents</code>, <code>Entities</code>, and <code>Enums</code> which allow Siri to discover and surface features to users. Schemas are organized into Domains, which group them for a specific category of functionality.
+          </p>
+        </header>
+        <div class="taxonomy taxonomy--two">
+          <article class="region region--1">
+            <h2>Primary Domains</h2>
+            <p>Fully usable with Apple Intelligence and Siri chat.</p>
+            <div class="chip-groups">
+              <div class="chip-group">
+                <p class="chip-group__label">New in iOS 27</p>
+                <ul class="chips">
+                  <li class="chip--new"><i class="ph ph-speaker-high" aria-hidden="true"></i>Audio <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-calendar-blank" aria-hidden="true"></i>Calendar <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-clock" aria-hidden="true"></i>Clock <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-map-pin" aria-hidden="true"></i>Maps <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-chat-circle" aria-hidden="true"></i>Messages <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-note" aria-hidden="true"></i>Notes <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-phone" aria-hidden="true"></i>Phone <span
+                      class="chip__badge">New</span></li>
+                  <li class="chip--new"><i class="ph ph-list-checks" aria-hidden="true"></i>Reminders <span
+                      class="chip__badge">New</span></li>
+                </ul>
+              </div>
+              <div class="chip-group">
+                <p class="chip-group__label">Expanded in iOS 27</p>
+                <ul class="chips">
+                  <li class="chip--expanded"><i class="ph ph-envelope-simple" aria-hidden="true"></i>Mail <span
+                      class="chip__badge chip__badge--expanded">Expanded</span></li>
+                  <li class="chip--expanded"><i class="ph ph-image" aria-hidden="true"></i>Photos <span
+                      class="chip__badge chip__badge--expanded">Expanded</span></li>
+                  <li class="chip--expanded"><i class="ph ph-magnifying-glass" aria-hidden="true"></i>System &amp;
+                    in-app search <span class="chip__badge chip__badge--expanded">Expanded</span></li>
+                </ul>
+              </div>
+              <div class="chip-group">
+                <p class="chip-group__label">Since iOS 18</p>
+                <ul class="chips">
+                  <li><i class="ph ph-camera" aria-hidden="true"></i>Camera</li>
+                  <li><i class="ph ph-files" aria-hidden="true"></i>Files</li>
+                </ul>
+              </div>
+            </div>
+            <p class="region__callout"><strong>Full adoption required:</strong> Mail, Clock and Messages. Partial schema
+              coverage is not possible for them.</p>
+          </article>
+          <article class="region region--2">
+            <h2>Shortcuts-Restricted Domains</h2>
+            <p>Intents and entities here are not referenced directly in a Siri conversation. They remain useful through
+              Shortcuts.</p>
+            <ul class="chips chips--soft">
+              <li><i class="ph ph-book-open" aria-hidden="true"></i>Books</li>
+              <li><i class="ph ph-browser" aria-hidden="true"></i>Browser</li>
+              <li><i class="ph ph-notebook" aria-hidden="true"></i>Journaling</li>
+              <li><i class="ph ph-presentation" aria-hidden="true"></i>Presentation</li>
+              <li><i class="ph ph-article" aria-hidden="true"></i>Reader</li>
+              <li><i class="ph ph-table" aria-hidden="true"></i>Spreadsheet</li>
+              <li><i class="ph ph-chalkboard" aria-hidden="true"></i>Whiteboard</li>
+              <li><i class="ph ph-text-aa" aria-hidden="true"></i>Word Processor</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <!-- 8. Semantic Bridge -->
+      <section class="slide" data-slide="8" aria-label="Slide 8">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">08 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>Implementing the <span class="accent">Semantic Bridge</span></h1>
+          <p class="lede">There's a macro for each one of the schemas along with snippets to quickly create them with autocomplete. Apple recommends creating a subset of your existing models along with a cache strategy to quickly provide them when prompted by system experiences.</p>
+        </header>
+        <div class="bridge">
+          <article class="code-panel">
+            <pre><code class="language-swift">@AppEntity(schema: .notes.note)
 struct MyCustomNote {
-  var title: String
-  var body: String
-}
+  static let defaultQuery = NoteEntityQuery()
+  
+  let id: <#Identifiable.ID#>
+  var name: AttributedString
+  var content: AttributedString?
+  var attachments: [IntentFile]
+  var isPinned: Bool
+  var creationDate: Date?
+  var modificationDate: Date?
+  var folder: <#FolderEntity#>?
 
-@AppIntent(schema: .notes.createNote)
-struct CreateMyNote {
-  func perform() async throws
-    -&gt; some IntentResult { … }
+  var displayRepresentation: DisplayRepresentation {
+    <#DisplayRepresentation#>
+  }
 }</code></pre>
-          <p class="code-panel__tag">Semantic Index</p>
-        </article>
-      </div>
-    </section>
+          </article>
+          
+          <article class="code-panel">
+            <pre><code class="language-swift">@AppIntent(schema: .notes.updateNote)
+struct UpdateNoteIntent {
+  var target: MyCustomNote
+  var name: AttributedString?
+  var attachments: [IntentFile]?
+  var isPinned: Bool?
+  var folder: <#FolderEntity#>?
 
-    <!-- 8. Multi-app orchestration -->
-    <section class="slide" data-slide="10" aria-label="Slide 10">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">10 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>Multi-App <span class="accent">Orchestration</span></h1>
-        <p class="lede">Siri’s job is not only to chat — it strings entities and intents across apps to finish a task.</p>
-      </header>
-      <div class="split split--visual-left">
-        <figure class="fig fig--icon">
-          <img src="assets/illustrations/icon-orchestration.png" alt="3D illustration of two apps connected through an assistant orb" />
-        </figure>
-        <div class="flow-row flow-row--stacked">
-        <div class="flow-step flow-step--wide">
-          <span class="flow-step__n">User</span>
-          <strong>“Siri, send this event to John.”</strong>
-          <small>Calendar open on screen — or named by title</small>
-        </div>
-        <div class="orchestrate">
-          <article class="card">
-            <p class="card__meta">1 · Entities</p>
-            <h2>Calendar event + person</h2>
-            <p>Siri identifies the on-screen event entity and the destination contact.</p>
-          </article>
-          <article class="card card--warm">
-            <p class="card__meta">2 · Intent</p>
-            <h2><code>.messages.sendMessage</code></h2>
-            <p>If multiple apps adopt the schema, Siri can offer a choice before sending.</p>
-          </article>
-          <article class="card card--dark">
-            <p class="card__meta">3 · Snippet</p>
-            <h2>Confirm, then send</h2>
-            <p>A confirmation snippet previews the draft. The message can fire without launching the messaging app.</p>
+  func perform() async throws -> some ReturnsValue&lt;MyCustomNote> {
+    <#code#>
+  }
+}</code></pre>
           </article>
         </div>
+      </section>
+      <!-- 9. Multi-app orchestration -->
+      <section class="slide" data-slide="9" aria-label="Slide 9">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">09 / 11</span>
         </div>
-      </div>
-    </section>
-
-    <!-- 9. Edge Case -->
-    <section class="slide" data-slide="11" aria-label="Slide 11">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">11 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>What if nothing <span class="accent">fits a schema?</span></h1>
-      </header>
-      <div class="stack">
-        <article class="callout">
-          <h2>The Scenario</h2>
-          <p>“My app uses Visit Logs and Tags. We have complex charting actions. Nothing fits Notes or Files.”</p>
-        </article>
-        <article class="callout callout--warn">
-          <h2>Don’t wait for a perfect domain</h2>
-          <p>Postpone only if you believe Apple must ship your exact niche schema first. You can still expose custom App Intents and Entities for Shortcuts, Spotlight, and Control Center today.</p>
-        </article>
-        <article class="callout">
-          <h2>What to do now</h2>
-          <p>Subset lightweight entities, design snippet journeys, and ship custom intents. When a schema eventually fits, map into it — and chain schema intents into your custom flows for more visibility.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- 10. Custom intents path -->
-    <section class="slide" data-slide="12" aria-label="Slide 12">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">12 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>Custom Intents Still <span class="accent">Count</span></h1>
-        <p class="lede">Out-of-domain capabilities remain first-class through Shortcuts and Spotlight — and can still surface branded snippets.</p>
-      </header>
-      <div class="split split--visual-left">
-        <figure class="fig fig--icon">
-          <img src="assets/illustrations/icon-shortcuts-spotlight.png" alt="3D illustration of Shortcuts tiles, Spotlight search, and system controls" />
-        </figure>
-        <div class="trinity trinity--compact">
-        <article class="card card--primary">
-          <p class="card__meta">Shortcuts</p>
-          <h2>Fixed, reliable triggers</h2>
-          <p>Example: “Find the closest landmark in Travel Tracking.” A custom intent (no schema) can still run via an App Shortcut and open a result snippet.</p>
-        </article>
-        <article class="card card--dark">
-          <p class="card__meta">Spotlight</p>
-          <h2>Entities stay findable</h2>
-          <p>Index lightweight entities so system search can surface your content even when Siri chat cannot natively reason about a niche domain.</p>
-        </article>
-        <article class="card card--muted">
-          <p class="card__meta">Snippet chaining</p>
-          <h2>Grow beyond schemas</h2>
-          <p>Buttons inside snippets can trigger follow-up custom intents — favorite a landmark, buy tickets, open a detail screen — without waiting on Apple.</p>
-        </article>
+        <header class="slide__header">
+          <h1>Multi-App <span class="accent">Orchestration</span></h1>
+          <p class="lede">Siri can use multiple entities and intents across apps to finish a task.
+          </p>
+        </header>
+        <div class="split split--visual-left">
+          <div class="shot-pair">
+            <figure class="shot-pair__item">
+              <img src="assets/screenshots/snippet-entity-in-siri.png"
+                alt="Siri showing a branded calendar event entity card for an iOS D&amp;I Committee meeting" />
+            </figure>
+            <figure class="shot-pair__item">
+              <img src="assets/screenshots/snippet-confirm-send.png"
+                alt="Confirmation snippet to send a calendar event to John Doe via Messages" />
+            </figure>
+            <figure class="shot-pair__item">
+              <img src="assets/screenshots/extracted/p04-003.png"
+                alt="App picker open on the confirmation snippet, listing Messages, WhatsApp, UnicornChat and Telegram as send options" />
+            </figure>
+          </div>
+          <div class="flow-row flow-row--stacked">
+            <div class="flow-step flow-step--wide">
+              <span class="flow-step__n">User</span>
+              <strong>“Siri, send this event to John.”</strong>
+              <small>Calendar open on screen or named by title</small>
+            </div>
+            <div class="orchestrate">
+              <article class="card">
+                <p class="card__meta">1 · Entities</p>
+                <h2>Calendar event + person</h2>
+                <p>Views can be associated with entities by setting their <code>appEntityIdentifier</code>.</br></br>In
+                  SwiftUI Views it's a modifier and in UIKit it's a property of UIViews.</br></br>Siri is able to reason and reference them as "this" or "3rd &lt;entity>".</p>
+              </article>
+              <article class="card card--warm">
+                <p class="card__meta">2 · Intent</p>
+                <h2><code>.messages.sendMessage</code></h2>
+                <p>If multiple apps adopt the schema, Siri allows users to choose which one to use.</br></br>Alternative representations of your entities can be provided with the <code>Transferable</code> protocol (e.g.: text, image, <code>Codable</code>).</br></br>This can allow your entities to cover more scenarios and bring more visibility to your app!</p>
+              </article>
+              <article class="card card--dark">
+                <p class="card__meta">3 · Snippet</p>
+                <h2>Confirm, then send</h2>
+                <p>A confirmation snippet previews the draft. The message can fire without launching the messaging
+                  app.</br></br>Once the intent is done the app can show a result snippet, which can give an opportunity
+                  to showcase non-schema intents of your app.</p>
+              </article>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- 14. Integration Blueprint -->
-    <section class="slide slide--closing" data-slide="13" aria-label="Slide 13">
-      <div class="slide__chrome">
-        <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-        <span class="slide__count">13 / 13</span>
-      </div>
-      <header class="slide__header">
-        <h1>The Integration <span class="accent">Blueprint</span></h1>
-      </header>
-      <div class="blueprint">
-        <article class="blueprint__step">
-          <span class="blueprint__n">01</span>
-          <h2>Separate brain from face</h2>
-          <p>Expose a lightweight subset of your models as App Entities. Keep core logic callable without loading full screens.</p>
-        </article>
-        <article class="blueprint__step blueprint__step--featured">
-          <span class="blueprint__n">02</span>
-          <h2>Prefer schemas, ship custom too</h2>
-          <p>Map to pretrained domains when you can. Use custom intents and Shortcuts/Spotlight so niche features stay discoverable today.</p>
-        </article>
-        <article class="blueprint__step">
-          <span class="blueprint__n">03</span>
-          <h2>Design snippet journeys</h2>
-          <p>Plan result and confirmation snippets — and how they chain into follow-up intents or a deep link into the app.</p>
-        </article>
-      </div>
-      <p class="closing-line">Let’s build something lovable. Together.</p>
-    </section>
+      </section>
+      <!-- 10. Edge Case -->
+      <section class="slide" data-slide="10" aria-label="Slide 10">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">10 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>What if nothing <span class="accent">fits a schema?</span></h1>
+        </header>
+        <div class="stack">
+          <article class="callout">
+            <h2>The Scenario</h2>
+            <p>“My app uses Visit Logs and Tags. We have complex charting actions. Nothing fits any of the available schemas.”</p>
+          </article>
+          <article class="callout callout--warn">
+            <h2>Don’t wait for a perfect domain</h2>
+            <p>You can still expose custom App Intents and Entities for Shortcuts, Spotlight, and Control Center today.</p>
+          </article>
+          <article class="callout">
+            <h2>What to do now</h2>
+            <p>Subset lightweight entities, design snippet journeys, and ship custom intents.</br></br>When a schema eventually
+              fits, map into it and chain schema intents into your custom flows for more visibility.</br></br>Working on that can help prepare a foundation for future improvements and new schema launches.</p>
+          </article>
+        </div>
+      </section>
+      <!-- 11. Custom intents path -->
+      <section class="slide" data-slide="11" aria-label="Slide 11">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">11 / 11</span>
+        </div>
+        <header class="slide__header">
+          <h1>Custom Intents Still <span class="accent">Count</span></h1>
+          <p class="lede">Out-of-domain capabilities remain first-class through Shortcuts and Spotlight and can still
+            surface branded snippets.</p>
+        </header>
+        <div class="split split--visual-left">
+          <div class="shot-pair">
+            <figure class="shot-pair__item">
+              <img src="assets/screenshots/snippet-result-landmark-siri.png"
+                alt="Siri answering “Find closest landmark in traveltracking” with a TravelTracking result snippet for Niagara Falls" />
+            </figure>
+            <figure class="shot-pair__item">
+              <img src="assets/screenshots/snippet-result-landmark.png"
+                alt="TravelTracking Niagara Falls snippet with ticket quantity prompt" />
+            </figure>
+            <figure class="shot-pair__item">
+              <img src="assets/screenshots/snippet-confirm-tickets.png"
+                alt="Confirmation snippet to book Niagara Falls tickets with price and Book Now" />
+            </figure>
+          </div>
+          <div class="trinity trinity--compact">
+            <article class="card card--dark">
+              <p class="card__meta"><i class="ph ph-magnifying-glass" aria-hidden="true"></i> Spotlight</p>
+              <h2>Entities stay findable</h2>
+              <p>Index lightweight entities so system search can surface your content even when Siri chat cannot
+                natively reason about a niche domain.</p>
+            </article>
+            <article class="card card--primary">
+              <p class="card__meta"><i class="ph ph-lightning" aria-hidden="true"></i> Shortcuts</p>
+              <h2>Fixed, reliable triggers</h2>
+              <p>A custom intent (no schema) can still run via an App Shortcut and open a result snippet.</br>Restrictions: only triggered by pre-specified commands set in <code>AppShortcutsProvider</code> and apps are limited to have 10 shortcuts.</p>
+            </article>
+            <article class="card card--muted">
+              <p class="card__meta"><i class="ph ph-link" aria-hidden="true"></i> Snippet chaining</p>
+              <h2>Grow beyond schemas</h2>
+              <p>Snippets can trigger follow-up intents, which can lead to a snippet-based user journey with your app's custom intents.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
     </div>
   </div>
 
   <nav class="controls" aria-label="Presentation controls">
     <button type="button" id="prev" aria-label="Previous slide">←</button>
-    <div class="progress" aria-hidden="true"><div class="progress__bar" id="progress"></div></div>
+    <div class="progress" aria-hidden="true">
+      <div class="progress__bar" id="progress"></div>
+    </div>
+    <label class="slide-picker">
+      <span class="visually-hidden">Go to slide</span>
+      <select id="slide-picker" aria-label="Go to slide"></select>
+    </label>
     <button type="button" id="next" aria-label="Next slide">→</button>
   </nav>
 
@@ -521,4 +510,5 @@ struct CreateMyNote {
 
   <script src="deck.js"></script>
 </body>
+
 </html>

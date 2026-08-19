@@ -2,7 +2,7 @@
 
 HTML presentation deck recreating the structure and content of `App_Intents_Blueprint.pptx`, restyled with [ArcTouch brand guidelines](https://www.arctouch.com).
 
-**13 slides.** For architecture, slide inventory, CSS components, and edit workflows, see **[DECK-SPECS.md](./DECK-SPECS.md)**.
+**11 slides.** For architecture, slide inventory, CSS components, and edit workflows, see **[DECK-SPECS.md](./DECK-SPECS.md)**.
 
 ## Open the deck
 
@@ -36,7 +36,7 @@ python3 -m http.server 8765
 Feature visuals live in `assets/illustrations/`:
 
 - ArcTouch-style 3D icons (trinity, orchestration, shortcuts/spotlight)
-- Apple Developer “Getting Started with App Intents” diagram on slide 5 (gateway)
+- Apple Developer “Getting Started with App Intents” diagram on slide 4 (gateway)
 - Slide 1 is title-only (no hero image)
 
 
