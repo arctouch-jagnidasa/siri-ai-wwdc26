@@ -11,6 +11,7 @@ Handoff document for continuing work on the ArcTouch-branded HTML presentation. 
 | `deck.js` | Horizontal carousel navigation, deep links, Swift highlighting |
 | `assets/` | Logos, illustrations, screenshots |
 | `vendor/` | highlight.js + Swift grammar, Phosphor icon font |
+| `tools/` | PDF export (`export-pdf.mjs`, `merge-pdf.py`) |
 | `README.md` | Quick start |
 | `DECK-SPECS.md` | This file |
 
@@ -26,6 +27,35 @@ python3 -m http.server 8765
 ```
 
 Serving over HTTP is optional for static assets but recommended when testing cache-busted images (`?v=2`).
+
+## PDF export
+
+```bash
+node tools/export-pdf.mjs            # -> App-Intents-Blueprint.pdf (gitignored)
+node tools/export-pdf.mjs /tmp/x.pdf # custom destination
+```
+
+Requires Node 22+ (for the global `WebSocket`), Google Chrome, and `python3` with `pypdf`. Set `CHROME=/path/to/chrome` if Chrome is not in `/Applications`. The script starts its own static server and headless Chrome, prints one page per slide, merges them, and reports page count, page size, and every clickable link it found — a failed export is loud rather than silent.
+
+Output is 14 pages at 20×11.25in (the 1920×1080 canvas at 96dpi), vector text, with slide 12's resource cards as live PDF links.
+
+### Why the export works the way it does
+
+Each of these was hit and verified; changing them tends to break the export quietly.
+
+| Behavior | Consequence | Handling |
+|---|---|---|
+| Chrome's paginated layout blows up nonlinearly past ~8 slides (7 slides ≈ 1s, 10+ never returns) | Whole-deck print jobs hang | Print one slide per job, then merge |
+| `preferCSSPageSize` lays out at the default 8.5in paper width | Trips the narrow-viewport rules; slide 12 collapses to one column and loses 4 of 5 links | Pass explicit `paperWidth`/`paperHeight` |
+| Print media collapses multi-column slides | Wrong layout throughout | Export with `Emulation.setEmulatedMedia({ media: "screen" })` |
+| Print layout ignores `.slide` bottom padding when sizing flex children | Bottom rows expand past the page edge and get clipped | Pin each slide's children to their measured screen heights |
+| Setting `flex` on a growing child collapses it to content height | Measuring after mutating pins a too-small height, top-aligning anything the child centered (hit every slide, 89–664px) | Measure all children first, then apply; the exporter asserts pinning is geometrically inert and fails if not |
+| Blurred `box-shadow` rasterizes as flat grey rectangles | Grey blocks behind cards | Suppress `box-shadow` for export (cards keep borders) |
+| The reused Chrome profile caches aggressively | Silently exports a stale deck after edits | `Network.setCacheDisabled` |
+
+### Browser Cmd+P is not a supported path
+
+Printing from the browser fails two ways, both verified: the narrow-viewport rules collapse multi-column slides (slide 12 drops to one column and loses 4 of 5 links), and a full-deck print job never returns. Scoping the responsive blocks to `@media screen` fixes the layout but not the hang, so it was left alone deliberately — the existing `@media print` block is unchanged and unused. Use `tools/export-pdf.mjs`.
 
 ---
 
@@ -452,5 +482,5 @@ After structural edits:
 
 - Sync README with current slide count and link here
 - Remove or repurpose unused hero PNGs under `assets/illustrations/`
-- Print/export CSS (`@media print`) if PDF export is needed
 - Responsive pass for very narrow viewports (< 900px)
+- Slide 9 overflows its slide box at 1536×864 (fits at 1600×900 and above); rem-based type against a shorter canvas
