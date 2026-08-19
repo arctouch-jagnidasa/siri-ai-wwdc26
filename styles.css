@@ -1733,6 +1733,83 @@ pre code {
   text-align: center;
 }
 
+.closing-line--hero {
+  margin-top: auto;
+  padding-bottom: 0.5rem;
+  color: var(--dark);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+}
+
+/* Key takeaways recap */
+.takeaways {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+  align-content: stretch;
+}
+
+.takeaway {
+  background: #fff;
+  border: 1px solid var(--bg-secondary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.takeaway__n {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 0.85rem 1.1rem 0.55rem;
+  color: var(--grey-mild);
+  background: var(--bg-secondary);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.takeaway--featured .takeaway__n {
+  background: linear-gradient(135deg, #ff8300, #ffa34e, #ffc894);
+  color: var(--dark);
+}
+
+.takeaway h2 {
+  margin: 0;
+  padding: 0.85rem 1.1rem 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.takeaway p {
+  margin: 0;
+  padding: 0 1.1rem 1.1rem;
+  color: var(--grey-mild);
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+.hero--center {
+  align-items: center;
+  text-align: center;
+  max-width: none;
+}
+
+.hero--center .hero__sub {
+  max-width: 36ch;
+  margin-inline: auto;
+}
+
+.slide--closing {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Controls */
 .controls {
   position: fixed;
@@ -1826,7 +1903,8 @@ body:-webkit-full-screen .hint {
   .hero--with-visual,
   .hero__diagram,
   .convo-grid,
-  .inclusive-grid {
+  .inclusive-grid,
+  .takeaways {
     grid-template-columns: 1fr;
     flex-direction: column;
   }
