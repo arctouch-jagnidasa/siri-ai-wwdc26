@@ -1981,7 +1981,9 @@ pre code {
 }
 
 .takeaway__n {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.35rem;
@@ -1992,9 +1994,11 @@ pre code {
   border-radius: var(--radius) var(--radius) 0 0;
 }
 
-.takeaway--featured .takeaway__n {
-  background: linear-gradient(135deg, #ff8300, #ffa34e, #ffc894);
-  color: var(--dark);
+.takeaway__n .ph {
+  flex: 0 0 auto;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--orange-intense);
 }
 
 .takeaway h2 {

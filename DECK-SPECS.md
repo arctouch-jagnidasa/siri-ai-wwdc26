@@ -134,7 +134,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 | 9 | Orchestration | Multi-App Orchestration | Screenshot trio + flow + cards | `.shot-pair`, `.flow-row--stacked`, `.orchestrate` |
 | 10 | Edge case | What if nothing fits a schema? | Vertical callouts | `.stack`, `.callout`, `.callout--warn` |
 | 11 | Custom intents | Custom Intents Still Count | Screenshot trio + three cards | `.split--visual-left`, `.shot-pair` |
-| 12 | Key takeaways | What We Learned | 3×2 takeaway grid | `.takeaways`, `.takeaway`, `.takeaway--featured` |
+| 12 | Key takeaways | What We Learned | 3×2 takeaway grid | `.takeaways`, `.takeaway`, `.takeaway__n`, Phosphor icons |
 | 13 | Q&A | Questions? | Hero closing + tagline | `slide--hero`, `slide--closing`, `.hero--center`, `.closing-line--hero` |
 
 ### Removed slides (do not re-add without intent)
@@ -268,7 +268,7 @@ by any slide — safe to reuse.
 
 ### Closing / takeaways
 
-- `.takeaways` → `.takeaway` with `.takeaway__n` (01–06). Featured card: `.takeaway--featured`.
+- `.takeaways` → `.takeaway` with `.takeaway__n` (Phosphor icon + 01–06 in a grey band). All six cards share the same treatment.
 - Q&A uses `slide--hero slide--closing`, `.hero--center`, and `.closing-line.closing-line--hero`.
 - Legacy `.blueprint` / `.blueprint__step` CSS remains available but unused.
 
