@@ -1964,10 +1964,13 @@ pre code {
 .takeaways {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Rows hug their cards; the pair of rows is then centred in the slide. */
+  grid-auto-rows: min-content;
   gap: 1rem;
   flex: 1;
   min-height: 0;
-  align-content: stretch;
+  align-content: center;
+  align-items: start;
 }
 
 .takeaway {
@@ -1977,7 +1980,6 @@ pre code {
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  min-height: 0;
 }
 
 .takeaway__n {
@@ -2038,13 +2040,11 @@ pre code {
 .resources {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  /* Rows hug their cards; the pair of rows is then centred in the slide. */
-  grid-auto-rows: min-content;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0.85rem;
   flex: 1;
   min-height: 0;
-  align-content: center;
-  align-items: start;
+  align-content: stretch;
 }
 
 .resource {
@@ -2052,6 +2052,7 @@ pre code {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
   background: #fff;
   border: 1px solid var(--bg-secondary);
   border-radius: var(--radius);
@@ -2085,10 +2086,9 @@ pre code {
 .resource__thumb {
   display: block;
   width: 100%;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
+  min-height: 0;
   height: auto;
-  /* Cap the preview on short windows so the card still hugs its text. */
-  max-height: 22vh;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center top;
