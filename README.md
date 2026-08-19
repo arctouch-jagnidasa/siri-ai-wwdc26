@@ -36,7 +36,7 @@ python3 -m http.server 8765
 Feature visuals live in `assets/illustrations/`:
 
 - ArcTouch-style 3D icons (trinity, orchestration, shortcuts/spotlight)
-- Apple Developer “Getting Started with App Intents” diagram on slide 5 (gateway)
+- Apple Developer “Getting Started with App Intents” diagram on slide 4 (gateway)
 - Slide 1 is title-only (no hero image)
 
 
