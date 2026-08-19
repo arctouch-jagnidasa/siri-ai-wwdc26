@@ -6,7 +6,7 @@ Handoff document for continuing work on the ArcTouch-branded HTML presentation. 
 
 | Path | Role |
 |------|------|
-| `index.html` | All slide markup (11 slides inside `#track`) |
+| `index.html` | All slide markup (14 slides inside `#track`) |
 | `styles.css` | ArcTouch tokens, layout, slide components |
 | `deck.js` | Horizontal carousel navigation, deep links, Swift highlighting |
 | `assets/` | Logos, illustrations, screenshots |
@@ -67,7 +67,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 <section class="slide" data-slide="N" aria-label="Slide N">
   <div class="slide__chrome">
     <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-    <span class="slide__count">NN / 11</span>
+    <span class="slide__count">NN / 14</span>
   </div>
   <header class="slide__header">
     <h1>Title with <span class="accent">emphasis</span></h1>
@@ -81,8 +81,8 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 | Class | Use |
 |-------|-----|
-| `slide--hero` | Slide 1 only. Orange gradient background. Use `logo--light` (orange-background SVG). No hero image currently. |
-| `slide--closing` | Optional closing layout + tagline (unused after Integration Blueprint removal). |
+| `slide--hero` | Slides 1 and 14. Orange gradient background. Use `logo--light` (orange-background SVG). No hero image currently. |
+| `slide--closing` | Slide 14 Q&A. Centers hero content and keeps the closing tagline at the bottom. |
 | `is-active` | Set on slide 1 in HTML; toggled by JS. Do not rely on it in CSS for layout. |
 
 ### Typography helpers
@@ -99,8 +99,8 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 | Slide | Logo file | Class |
 |-------|-----------|-------|
-| 1 (hero) | `ArcTouch-logotype-color-orange-background-RGB.svg` | `logo logo--light` |
-| 2–12 | `ArcTouch-logotype-color-white-background-RGB.svg` | `logo` |
+| 1, 14 (hero) | `ArcTouch-logotype-color-orange-background-RGB.svg` | `logo logo--light` |
+| 2–13 | `ArcTouch-logotype-color-white-background-RGB.svg` | `logo` |
 
 ---
 
@@ -119,7 +119,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 ---
 
-## Slide inventory (11 slides)
+## Slide inventory (14 slides)
 
 | # | Comment | Title (h1) | Layout pattern | Key classes / assets |
 |---|---------|--------------|----------------|----------------------|
@@ -134,6 +134,9 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 | 9 | Orchestration | Multi-App Orchestration | Screenshot trio + flow + cards | `.shot-pair`, `.flow-row--stacked`, `.orchestrate` |
 | 10 | Edge case | What if nothing fits a schema? | Vertical callouts | `.stack`, `.callout`, `.callout--warn` |
 | 11 | Custom intents | Custom Intents Still Count | Screenshot trio + three cards | `.split--visual-left`, `.shot-pair` |
+| 12 | Useful links | Useful Links | 5 link cards with OG/video thumbs | `.resources`, `.resource`, `assets/links/*` |
+| 13 | Key takeaways | What We Learned | 3×2 takeaway grid | `.takeaways`, `.takeaway`, `.takeaway__n`, Phosphor icons |
+| 14 | Q&A | Questions? | Hero closing + tagline | `slide--hero`, `slide--closing`, `.hero--center`, `.closing-line--hero` |
 
 ### Removed slides (do not re-add without intent)
 
@@ -149,7 +152,7 @@ These were in the original PPTX flow and were deleted or merged:
 | Photos & Files | Removed |
 | Integration Blueprint | Removed |
 
-Current deck: **11 slides** (was 10).
+Current deck: **14 slides** (11 content + useful links + summary + Q&A).
 
 ---
 
@@ -264,9 +267,12 @@ centred. Each slide using it needs its `.split--visual-left` row capped
 `.shot-gallery`, `.shot` and `.shot-notes` (captioned gallery) are no longer used
 by any slide — safe to reuse.
 
-### Closing blueprint (unused)
+### Closing / takeaways / resources
 
-CSS still defines `.blueprint` → `.blueprint__step` with `.blueprint__n`, `.blueprint__step--featured`, and `.closing-line` after the Integration Blueprint slide was removed. Safe to reuse if adding a closing slide.
+- `.resources` → `.resource` link cards with `.resource__thumb`, `.resource__meta`, and `.resource__body`. Thumbnails live in `assets/links/` (WWDC26 OG/video previews + docs OG images). Layout: 6-column grid so three WWDC cards span the top row and two docs cards center beneath.
+- `.takeaways` → `.takeaway` with `.takeaway__n` (Phosphor icon + 01–06 on the orange gradient band, dark text/icons for contrast). All six cards share the same treatment.
+- Q&A uses `slide--hero slide--closing`, `.hero--center`, and `.closing-line.closing-line--hero`.
+- Legacy `.blueprint` / `.blueprint__step` CSS remains available but unused.
 
 ### Legacy / unused in current deck
 

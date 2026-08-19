@@ -2,7 +2,7 @@
 
 HTML presentation deck recreating the structure and content of `App_Intents_Blueprint.pptx`, restyled with [ArcTouch brand guidelines](https://www.arctouch.com).
 
-**11 slides.** For architecture, slide inventory, CSS components, and edit workflows, see **[DECK-SPECS.md](./DECK-SPECS.md)**.
+**14 slides.** For architecture, slide inventory, CSS components, and edit workflows, see **[DECK-SPECS.md](./DECK-SPECS.md)**.
 
 ## Open the deck
 

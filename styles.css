@@ -1953,6 +1953,202 @@ pre code {
   text-align: center;
 }
 
+.closing-line--hero {
+  margin-top: auto;
+  padding-bottom: 0.5rem;
+  color: var(--dark);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+}
+
+/* Key takeaways recap */
+.takeaways {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Rows hug their cards; the pair of rows is then centred in the slide. */
+  grid-auto-rows: min-content;
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+  align-content: center;
+  align-items: start;
+}
+
+.takeaway {
+  background: #fff;
+  border: 1px solid var(--bg-secondary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.takeaway__n {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 1.15rem 1.1rem 0.75rem;
+  color: var(--dark);
+  background: linear-gradient(135deg, #ff8300, #ffa34e, #ffc894);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.takeaway__n .ph {
+  flex: 0 0 auto;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--dark);
+}
+
+.takeaway h2 {
+  margin: 0;
+  padding: 1.15rem 1.1rem 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.takeaway p {
+  margin: 0;
+  padding: 0 1.1rem 1.45rem;
+  color: var(--grey-mild);
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+.hero--center {
+  align-items: center;
+  text-align: center;
+  max-width: none;
+}
+
+.hero--center .hero__sub {
+  max-width: 36ch;
+  margin-inline: auto;
+}
+
+.slide--closing {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Useful links / resources */
+.resources {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.85rem;
+  flex: 1;
+  min-height: 0;
+  align-content: stretch;
+}
+
+.resource {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: #fff;
+  border: 1px solid var(--bg-secondary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+/* Center the two documentation cards under the three WWDC sessions. */
+.resources > :nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.resources > :nth-child(5) {
+  grid-column: 4 / span 2;
+}
+
+.resource:hover,
+.resource:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(85, 86, 90, 0.16);
+  outline: none;
+}
+
+.resource:focus-visible {
+  border-color: var(--orange-intense);
+}
+
+.resource__thumb {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--bg-secondary);
+}
+
+.resource__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.7rem 0.85rem 0.85rem;
+  flex: 0 0 auto;
+}
+
+.resource__meta {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange-intense);
+}
+
+.resource__meta .ph {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.resource__body h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--grey-deep);
+}
+
+.resource__body p:not(.resource__meta) {
+  margin: 0;
+  color: var(--grey-mild);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 1280px) {
+  .resources {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resource,
+  .resources > :nth-child(4),
+  .resources > :nth-child(5) {
+    grid-column: auto;
+  }
+}
+
 /* Controls */
 .controls {
   position: fixed;
@@ -2090,7 +2286,9 @@ body:-webkit-full-screen .hint {
   .hero--with-visual,
   .hero__diagram,
   .convo-grid,
-  .inclusive-grid {
+  .inclusive-grid,
+  .takeaways,
+  .resources {
     grid-template-columns: 1fr;
     flex-direction: column;
   }
