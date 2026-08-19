@@ -270,7 +270,7 @@ by any slide — safe to reuse.
 ### Closing / takeaways / resources
 
 - `.resources` → `.resource` link cards with `.resource__thumb`, `.resource__meta`, and `.resource__body`. Thumbnails live in `assets/links/` (WWDC26 OG/video previews + docs OG images). Layout: 6-column grid so three WWDC cards span the top row and two docs cards center beneath.
-- `.takeaways` → `.takeaway` with `.takeaway__n` (Phosphor icon + 01–06 in a grey band). All six cards share the same treatment.
+- `.takeaways` → `.takeaway` with `.takeaway__n` (Phosphor icon + 01–06 on the orange gradient band, dark text/icons for contrast). All six cards share the same treatment.
 - Q&A uses `slide--hero slide--closing`, `.hero--center`, and `.closing-line.closing-line--hero`.
 - Legacy `.blueprint` / `.blueprint__step` CSS remains available but unused.
 

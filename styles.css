@@ -1991,8 +1991,8 @@ pre code {
   font-size: 1.35rem;
   line-height: 1;
   padding: 1.15rem 1.1rem 0.75rem;
-  color: var(--grey-mild);
-  background: var(--bg-secondary);
+  color: var(--dark);
+  background: linear-gradient(135deg, #ff8300, #ffa34e, #ffc894);
   border-radius: var(--radius) var(--radius) 0 0;
 }
 
@@ -2000,7 +2000,7 @@ pre code {
   flex: 0 0 auto;
   font-size: 1.6rem;
   line-height: 1;
-  color: var(--orange-intense);
+  color: var(--dark);
 }
 
 .takeaway h2 {
