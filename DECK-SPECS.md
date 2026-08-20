@@ -166,7 +166,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 | 11 | Edge case | What if nothing fits a schema? | Vertical callouts | `.stack`, `.callout`, `.callout--warn` |
 | 12 | Custom intents | Custom Intents Still Count | Screenshot trio + three cards | `.split--visual-left`, `.shot-pair` |
 | 13 | App Intents testing | App Intents are now testable | 2×2 inclusive cards | `.inclusive-grid`, `.inclusive-card`, Phosphor icons |
-| 14 | Testing samples | Testing intents and entity queries | Two equal code panels | `.bridge`, `.code-panel`, Swift in `<pre><code>` |
+| 14 | Testing samples | Testing intents and entity queries | Four code panels (2×2) | `.bridge`, `.code-panel`, Swift in `<pre><code>` |
 | 15 | Useful links | Useful Links | 6 link cards with OG/video thumbs | `.resources`, `.resource`, `assets/links/*` |
 | 16 | Key takeaways | What We Learned | 3×2 takeaway grid | `.takeaways`, `.takeaway`, `.takeaway__n`, Phosphor icons |
 | 17 | Q&A | Questions? | Hero closing + tagline | `slide--hero`, `slide--closing`, `.hero--center`, `.closing-line--hero` |
