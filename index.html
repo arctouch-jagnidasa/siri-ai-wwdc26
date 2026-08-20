@@ -23,7 +23,7 @@
       <section class="slide slide--hero is-active" data-slide="1" aria-label="Slide 1">
         <div class="slide__chrome">
           <img class="logo logo--light" src="assets/ArcTouch-logotype-color-orange-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">01 / 14</span>
+          <span class="slide__count">01 / 17</span>
         </div>
         <div class="hero hero--with-visual">
           <span class="hero__orb" aria-hidden="true">
@@ -40,7 +40,7 @@
       <section class="slide" data-slide="2" aria-label="Slide 2">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">02 / 14</span>
+          <span class="slide__count">02 / 17</span>
         </div>
         <header class="slide__header">
           <h1>Siri got smarter on <span class="accent">iOS 27</span></h1>
@@ -83,7 +83,7 @@
       <section class="slide" data-slide="3" aria-label="Slide 3">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">03 / 14</span>
+          <span class="slide__count">03 / 17</span>
         </div>
         <header class="slide__header">
           <h1>The Gateway to <span class="accent">system experiences</span></h1>
@@ -127,7 +127,7 @@
       <section class="slide" data-slide="4" aria-label="Slide 4">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">04 / 14</span>
+          <span class="slide__count">04 / 17</span>
         </div>
         <header class="slide__header">
           <h1>From nested screens to <span class="accent">a conversation</span></h1>
@@ -158,7 +158,7 @@
       <section class="slide" data-slide="5" aria-label="Slide 5">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">05 / 14</span>
+          <span class="slide__count">05 / 17</span>
         </div>
         <header class="slide__header">
           <h1>More inclusive <span class="accent">by design</span></h1>
@@ -214,7 +214,7 @@
       <section class="slide" data-slide="6" aria-label="Slide 6">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">06 / 14</span>
+          <span class="slide__count">06 / 17</span>
         </div>
         <header class="slide__header">
           <h1>The Foundational <span class="accent">Trinity</span></h1>
@@ -250,7 +250,7 @@
       <section class="slide" data-slide="7" aria-label="Slide 7">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">07 / 14</span>
+          <span class="slide__count">07 / 17</span>
         </div>
         <header class="slide__header">
           <h1>App <span class="accent">Schemas</span> and Schema <span class="accent">Domains</span></h1>
@@ -326,7 +326,7 @@
       <section class="slide" data-slide="8" aria-label="Slide 8">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">08 / 14</span>
+          <span class="slide__count">08 / 17</span>
         </div>
         <header class="slide__header">
           <h1>Implementing the <span class="accent">Semantic Bridge</span></h1>
@@ -369,11 +369,74 @@ struct UpdateNoteIntent {
           </article>
         </div>
       </section>
-      <!-- 9. Multi-app orchestration -->
+      <!-- 9. Spotlight indexing -->
       <section class="slide" data-slide="9" aria-label="Slide 9">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">09 / 14</span>
+          <span class="slide__count">09 / 17</span>
+        </div>
+        <header class="slide__header">
+          <h1>Index entities in <span class="accent">Spotlight</span></h1>
+          <p class="lede">Conforming to <code>IndexedEntity</code> is the only requirement for indexing support. Donate with a <strong>named</strong> <code>CSSearchableIndex</code> — Apple reserves the default index for prototyping and testing. Indexed content powers lexical and semantic search, and Apple Intelligence can apply it to experiences like Siri.</p>
+        </header>
+        <div class="split split--visual-left">
+          <figure class="shot-pair__item">
+            <img src="assets/screenshots/spotlight-landmark.png"
+              alt="Dark-mode iPhone Spotlight search for landmark showing TravelTracking results: Landmark collections, Open Landmark, and Find Closest" />
+          </figure>
+          <div class="spotlight-index">
+            <div class="bridge">
+              <article class="code-panel">
+                <h2>Conform and map properties</h2>
+                <pre><code class="language-swift">struct LandmarkEntity: IndexedEntity {
+  @ComputedProperty(indexingKey: \.contentDescription)
+  var description: String { landmark.description }
+
+  @ComputedProperty(
+    customIndexingKey: CSCustomAttributeKey(
+      keyName: "com_AppIntentsTravelTracking_LandmarkEntity_continent"
+    )!
+  )
+  var continent: String { landmark.continent }
+}</code></pre>
+              </article>
+              <article class="code-panel">
+                <h2>Donate to a named index</h2>
+                <pre><code class="language-swift">static func donateLandmarks(
+  modelData: ModelData
+) async throws {
+  let entities = await modelData.landmarkEntities
+  try await CSSearchableIndex(
+    name: "AppIntentsTravelTracking_Landmarks"
+  ).indexAppEntities(entities)
+}</code></pre>
+              </article>
+            </div>
+            <div class="trinity">
+              <article class="card card--primary">
+                <p class="card__meta"><i class="ph ph-sliders" aria-hidden="true"></i> Extra attributes</p>
+                <h2><code>attributeSet</code> for the rest</h2>
+                <p>Fill a <code>CSSearchableItemAttributeSet</code> for non-wrapped fields. Wrapped properties and <code>displayRepresentation</code> (title, subtitle, image) win on the same key. <code>@DeferredProperty</code> is resolved at index time.</p>
+              </article>
+              <article class="card card--primary">
+                <p class="card__meta"><i class="ph ph-link" aria-hidden="true"></i> Existing Core Spotlight</p>
+                <h2>Associate, don’t replace</h2>
+                <p>Keep your <code>CSSearchableItem</code> pipeline. Call <code>associateAppEntity(_:priority:)</code> on the attribute set. Higher priority elevates that item in suggestions and search results.</p>
+              </article>
+              <article class="card card--primary">
+                <p class="card__meta"><i class="ph ph-arrow-square-out" aria-hidden="true"></i> Open and reindex</p>
+                <h2>Intents for hits and repair</h2>
+                <p>Ship an <code>OpenIntent</code> so a tap opens the entity. More than ten hits can use <code>ShowInAppSearchResultsIntent</code>. Implement <code>IndexedEntityQuery</code> so Spotlight can ask you to reindex.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 10. Multi-app orchestration -->
+      <section class="slide" data-slide="10" aria-label="Slide 10">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">10 / 17</span>
         </div>
         <header class="slide__header">
           <h1>Multi-App <span class="accent">Orchestration</span></h1>
@@ -424,11 +487,11 @@ struct UpdateNoteIntent {
           </div>
         </div>
       </section>
-      <!-- 10. Edge Case -->
-      <section class="slide" data-slide="10" aria-label="Slide 10">
+      <!-- 11. Edge Case -->
+      <section class="slide" data-slide="11" aria-label="Slide 11">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">10 / 14</span>
+          <span class="slide__count">11 / 17</span>
         </div>
         <header class="slide__header">
           <h1>What if nothing <span class="accent">fits a schema?</span></h1>
@@ -449,11 +512,11 @@ struct UpdateNoteIntent {
           </article>
         </div>
       </section>
-      <!-- 11. Custom intents path -->
-      <section class="slide" data-slide="11" aria-label="Slide 11">
+      <!-- 12. Custom intents path -->
+      <section class="slide" data-slide="12" aria-label="Slide 12">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">11 / 14</span>
+          <span class="slide__count">12 / 17</span>
         </div>
         <header class="slide__header">
           <h1>Custom Intents Still <span class="accent">Count</span></h1>
@@ -496,11 +559,105 @@ struct UpdateNoteIntent {
         </div>
       </section>
 
-      <!-- 12. Useful links -->
-      <section class="slide" data-slide="12" aria-label="Slide 12">
+      <!-- 13. App Intents testing -->
+      <section class="slide" data-slide="13" aria-label="Slide 13">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">12 / 14</span>
+          <span class="slide__count">13 / 17</span>
+        </div>
+        <header class="slide__header">
+          <h1>App Intents are <span class="accent">now testable</span></h1>
+          <p class="lede">AppIntentsTesting evaluates intents, entities, and queries through the same infrastructure Siri and Shortcuts use — so silent Spotlight and Siri regressions show up before you ship.</p>
+        </header>
+        <div class="inclusive-grid">
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-test-tube" aria-hidden="true"></i>
+              <p class="card__meta">UI testing target</p>
+            </div>
+            <div>
+              <h2>Live app, out of process</h2>
+              <p>Put tests in a UI testing bundle that shares the app’s code signing team. Launch the app, then create <code>IntentDefinitions(bundleIdentifier:)</code> — it discovers registered intents, entities, enums, and queries by string name.</p>
+            </div>
+          </article>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-play" aria-hidden="true"></i>
+              <p class="card__meta">Run the intent</p>
+            </div>
+            <div>
+              <h2>Same path as Siri</h2>
+              <p>Look up <code>AppIntentDefinition</code>, <code>makeIntent</code>, then <code>run()</code>. <code>ResolvedIntentResult</code> uses dynamic member lookup, so you assert properties by name without importing app types. Fast enough for frequent CI.</p>
+            </div>
+          </article>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-flow-arrow" aria-hidden="true"></i>
+              <p class="card__meta">Entities &amp; chains</p>
+            </div>
+            <div>
+              <h2>Nouns that flow between steps</h2>
+              <p>Resolve with <code>entities(matching:)</code>, <code>makeReference(identifier:)</code>, and <code>makeCase(_:)</code>. Pass <code>AnyAppEntity</code> into the next <code>makeIntent</code>. For setup, hide intents with <code>isDiscoverable = false</code> inside <code>#if DEBUG</code>.</p>
+            </div>
+          </article>
+          <article class="card inclusive-card">
+            <div class="inclusive-card__lead">
+              <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+              <p class="card__meta">System integration</p>
+            </div>
+            <div>
+              <h2>Transferable, Spotlight, on-screen</h2>
+              <p>Round-trip with <code>exported(as:)</code> and <code>resolved(from:)</code>. Query the index via <code>spotlightQuery(_:)</code> (pass <code>nil</code> for every indexed entity of that type). After a navigate intent, <code>viewAnnotations()</code> returns visible entities and <code>isSelected</code>.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 14. Testing samples -->
+      <section class="slide" data-slide="14" aria-label="Slide 14">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">14 / 17</span>
+        </div>
+        <header class="slide__header">
+          <h1>Testing intents and <span class="accent">entity queries</span></h1>
+          <p class="lede">AppIntentsTesting can run an intent and match entities by string — the same path Siri uses, without importing your app types.</p>
+        </header>
+        <div class="bridge">
+          <article class="code-panel">
+            <h2>Testing Intent execution</h2>
+            <pre><code class="language-swift">// Testing Intent execution
+import AppIntentsTesting
+
+func testCreateCalendar() async throws {
+    let definitions = IntentDefinitions(bundleIdentifier: "com.example.apple-samplecode.CometCal")
+    let createCalendar = definitions.intents["CreateCalendarIntent"]
+    let result = try await createCalendar.makeIntent(
+        name: "Occupy Saturn",
+        color: "red"
+    ).run()
+    XCTAssertEqual(try result.value.title, "Occupy Saturn")
+}</code></pre>
+          </article>
+          <article class="code-panel">
+            <h2>Testing Entity string queries</h2>
+            <pre><code class="language-swift">// Testing Entity string queries
+func testEventStringQuery() async throws {
+    let results = try await eventEntityDefinition
+        .entities(matching: "Cosmic Ray")
+
+    XCTAssertEqual(results.count, 1)
+    XCTAssertEqual(try results[0].title, "Cosmic Ray Calibration")
+}</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <!-- 15. Useful links -->
+      <section class="slide" data-slide="15" aria-label="Slide 15">
+        <div class="slide__chrome">
+          <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
+          <span class="slide__count">15 / 17</span>
         </div>
         <header class="slide__header">
           <h1>Useful <span class="accent">Links</span></h1>
@@ -531,6 +688,14 @@ struct UpdateNoteIntent {
               <p>Advanced features that make intents faster and more relevant.</p>
             </div>
           </a>
+          <a class="resource" href="https://developer.apple.com/videos/play/wwdc2026/295/" target="_blank" rel="noopener noreferrer">
+            <img class="resource__thumb" src="assets/links/wwdc2026-295.jpg" alt="" width="900" height="506" />
+            <div class="resource__body">
+              <p class="resource__meta"><i class="ph ph-play-circle" aria-hidden="true"></i> WWDC26 · 295</p>
+              <h2>Validate your App Intents adoption with AppIntentsTesting</h2>
+              <p>Execute intents, inspect results, and verify Spotlight and view annotations without UI automation.</p>
+            </div>
+          </a>
           <a class="resource" href="https://developer.apple.com/documentation/appintents/getting-started-with-the-app-intents-framework" target="_blank" rel="noopener noreferrer">
             <img class="resource__thumb" src="assets/links/app-intents-getting-started.jpg" alt="" width="1200" height="630" />
             <div class="resource__body">
@@ -550,11 +715,11 @@ struct UpdateNoteIntent {
         </div>
       </section>
 
-      <!-- 13. Key takeaways -->
-      <section class="slide" data-slide="13" aria-label="Slide 13">
+      <!-- 16. Key takeaways -->
+      <section class="slide" data-slide="16" aria-label="Slide 16">
         <div class="slide__chrome">
           <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">13 / 14</span>
+          <span class="slide__count">16 / 17</span>
         </div>
         <header class="slide__header">
           <h1>What We <span class="accent">Learned</span></h1>
@@ -594,11 +759,11 @@ struct UpdateNoteIntent {
         </div>
       </section>
 
-      <!-- 14. Q&A -->
-      <section class="slide slide--hero slide--closing" data-slide="14" aria-label="Slide 14">
+      <!-- 17. Q&A -->
+      <section class="slide slide--hero slide--closing" data-slide="17" aria-label="Slide 17">
         <div class="slide__chrome">
           <img class="logo logo--light" src="assets/ArcTouch-logotype-color-orange-background-RGB.svg" alt="ArcTouch" />
-          <span class="slide__count">14 / 14</span>
+          <span class="slide__count">17 / 17</span>
         </div>
         <div class="hero hero--center">
           <p class="eyebrow">Thank you</p>
