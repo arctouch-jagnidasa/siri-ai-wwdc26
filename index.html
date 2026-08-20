@@ -377,7 +377,7 @@ struct UpdateNoteIntent {
         </div>
         <header class="slide__header">
           <h1>Index entities in <span class="accent">Spotlight</span></h1>
-          <p class="lede">Conforming to <code>IndexedEntity</code> is the only requirement for indexing support. Donate with a <strong>named</strong> <code>CSSearchableIndex</code> — Apple reserves the default index for prototyping and testing. Indexed content powers lexical and semantic search, and Apple Intelligence can apply it to experiences like Siri.</p>
+          <p class="lede">If your app does not support Spotlight yet then you need to donate with a <strong>named</strong> <code>CSSearchableIndex</code>. Entities that conform to <code>IndexedEntity</code> are made available through lexical and semantic search. Siri can also use the properties of you entities to reason and bring up your entities in chats.</p>
         </header>
         <div class="split split--visual-left">
           <figure class="shot-pair__item">
@@ -416,7 +416,7 @@ struct UpdateNoteIntent {
               <article class="card card--primary">
                 <p class="card__meta"><i class="ph ph-sliders" aria-hidden="true"></i> Extra attributes</p>
                 <h2><code>attributeSet</code> for the rest</h2>
-                <p>Fill a <code>CSSearchableItemAttributeSet</code> for non-wrapped fields. Wrapped properties and <code>displayRepresentation</code> (title, subtitle, image) win on the same key. <code>@DeferredProperty</code> is resolved at index time.</p>
+                <p>Fill a <code>CSSearchableItemAttributeSet</code> for non-wrapped fields to describe you entity's content.</br>You can mark properties with <code>@DeferredProperty</code> if they shouldn't be included when the system indexes your entity.</p>
               </article>
               <article class="card card--primary">
                 <p class="card__meta"><i class="ph ph-link" aria-hidden="true"></i> Existing Core Spotlight</p>
@@ -426,7 +426,7 @@ struct UpdateNoteIntent {
               <article class="card card--primary">
                 <p class="card__meta"><i class="ph ph-arrow-square-out" aria-hidden="true"></i> Open and reindex</p>
                 <h2>Intents for hits and repair</h2>
-                <p>Ship an <code>OpenIntent</code> so a tap opens the entity. More than ten hits can use <code>ShowInAppSearchResultsIntent</code>. Implement <code>IndexedEntityQuery</code> so Spotlight can ask you to reindex.</p>
+                <p>Ship an <code>OpenIntent</code> so a tap opens the entity. More than ten results can use <code>ShowInAppSearchResultsIntent</code>.</p>
               </article>
             </div>
           </div>
@@ -566,48 +566,44 @@ struct UpdateNoteIntent {
           <span class="slide__count">13 / 17</span>
         </div>
         <header class="slide__header">
-          <h1>App Intents are <span class="accent">now testable</span></h1>
-          <p class="lede">AppIntentsTesting evaluates intents, entities, and queries through the same infrastructure Siri and Shortcuts use — so silent Spotlight and Siri regressions show up before you ship.</p>
+          <h1>App Intents are now <span class="accent">testable</span></h1>
+          <p class="lede">AppIntentsTesting evaluates intents, entities, and queries through the same infrastructure Siri and Shortcuts use.</p>
         </header>
         <div class="inclusive-grid">
           <article class="card inclusive-card">
             <div class="inclusive-card__lead">
               <i class="ph ph-test-tube" aria-hidden="true"></i>
-              <p class="card__meta">UI testing target</p>
             </div>
             <div>
-              <h2>Live app, out of process</h2>
-              <p>Put tests in a UI testing bundle that shares the app’s code signing team. Launch the app, then create <code>IntentDefinitions(bundleIdentifier:)</code> — it discovers registered intents, entities, enums, and queries by string name.</p>
+              <h2>Initial Setup</h2>
+              <p>Put tests in a UI testing bundle that shares the app’s code signing team. Launch the app, then create <code>IntentDefinitions(bundleIdentifier:)</code>.</br></br>It discovers registered intents, entities, enums, and queries by string name.</p>
             </div>
           </article>
           <article class="card inclusive-card">
             <div class="inclusive-card__lead">
               <i class="ph ph-play" aria-hidden="true"></i>
-              <p class="card__meta">Run the intent</p>
             </div>
             <div>
-              <h2>Same path as Siri</h2>
-              <p>Look up <code>AppIntentDefinition</code>, <code>makeIntent</code>, then <code>run()</code>. <code>ResolvedIntentResult</code> uses dynamic member lookup, so you assert properties by name without importing app types. Fast enough for frequent CI.</p>
+              <h2>Run Intents</h2>
+              <p>Look up <code>AppIntentDefinition</code>, <code>makeIntent</code>, then <code>run()</code>.</br></br><code>ResolvedIntentResult</code> uses dynamic member lookup, so you assert properties by name without importing app types. Fast enough for frequent CI.</p>
             </div>
           </article>
           <article class="card inclusive-card">
             <div class="inclusive-card__lead">
               <i class="ph ph-flow-arrow" aria-hidden="true"></i>
-              <p class="card__meta">Entities &amp; chains</p>
             </div>
             <div>
-              <h2>Nouns that flow between steps</h2>
-              <p>Resolve with <code>entities(matching:)</code>, <code>makeReference(identifier:)</code>, and <code>makeCase(_:)</code>. Pass <code>AnyAppEntity</code> into the next <code>makeIntent</code>. For setup, hide intents with <code>isDiscoverable = false</code> inside <code>#if DEBUG</code>.</p>
+              <h2>Passing Entities to Intents</h2>
+              <p>Resolve entities with <code>entities(matching:)</code>, <code>makeReference(identifier:)</code> or <code>makeCase(_:)</code>.</br></br>Pass the resulting <code>AnyAppEntity</code> into <code>makeIntent</code>.</br></br>You can mark test-specific intents by setting their <code>isDiscoverable</code> property to false.</p>
             </div>
           </article>
           <article class="card inclusive-card">
             <div class="inclusive-card__lead">
               <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
-              <p class="card__meta">System integration</p>
             </div>
             <div>
-              <h2>Transferable, Spotlight, on-screen</h2>
-              <p>Round-trip with <code>exported(as:)</code> and <code>resolved(from:)</code>. Query the index via <code>spotlightQuery(_:)</code> (pass <code>nil</code> for every indexed entity of that type). After a navigate intent, <code>viewAnnotations()</code> returns visible entities and <code>isSelected</code>.</p>
+              <h2>System Integrations</h2>
+              <p><strong>Transferable conformation:</strong> Round-trip with <code>exported(as:)</code> and <code>resolved(from:)</code>.</br></br><strong>Spotlight:</strong> Query the index via <code>spotlightQuery(_:)</code>, passing nil resolves all indexed entities.</br></br><strong>Screen Awareness:</strong> You can use an intent to open a screen for an entity and then validate if your views are properly associated with it through <code>viewAnnotations()</code>.</p>
             </div>
           </article>
         </div>
@@ -621,16 +617,14 @@ struct UpdateNoteIntent {
         </div>
         <header class="slide__header">
           <h1>Testing intents and <span class="accent">entity queries</span></h1>
-          <p class="lede">AppIntentsTesting can run an intent and match entities by string — the same path Siri uses, without importing your app types.</p>
+          <p class="lede">AppIntentsTesting can run intents, query entities, check Spotlight, and inspect view annotations without importing your app types.</p>
         </header>
         <div class="bridge">
           <article class="code-panel">
             <h2>Testing Intent execution</h2>
-            <pre><code class="language-swift">// Testing Intent execution
-import AppIntentsTesting
+            <pre><code class="language-swift">let definitions = IntentDefinitions(bundleIdentifier: "com.example.app")
 
 func testCreateCalendar() async throws {
-    let definitions = IntentDefinitions(bundleIdentifier: "com.example.apple-samplecode.CometCal")
     let createCalendar = definitions.intents["CreateCalendarIntent"]
     let result = try await createCalendar.makeIntent(
         name: "Occupy Saturn",
@@ -641,13 +635,41 @@ func testCreateCalendar() async throws {
           </article>
           <article class="code-panel">
             <h2>Testing Entity string queries</h2>
-            <pre><code class="language-swift">// Testing Entity string queries
-func testEventStringQuery() async throws {
+            <pre><code class="language-swift">func testEventStringQuery() async throws {
     let results = try await eventEntityDefinition
         .entities(matching: "Cosmic Ray")
 
     XCTAssertEqual(results.count, 1)
     XCTAssertEqual(try results[0].title, "Cosmic Ray Calibration")
+}</code></pre>
+          </article>
+          <article class="code-panel">
+            <h2>Testing Spotlight indexing</h2>
+            <pre><code class="language-swift">func testNewEventIndexedInSpotlight() async throws {
+    let before = try await eventEntityDefinition.spotlightQuery("Supernova Viewing Party")
+    XCTAssertTrue(before.isEmpty, "Event should not exist in Spotlight yet")
+
+    // ... Create "Supernova Viewing Party" Event
+
+    let after = try await eventEntityDefinition.spotlightQuery("Supernova Viewing Party")
+    XCTAssertEqual(after.count, 1)
+    XCTAssertEqual(try after[0].title, "Supernova Viewing Party")
+}</code></pre>
+          </article>
+          <article class="code-panel">
+            <h2>Testing view annotations</h2>
+            <pre><code class="language-swift">func testEventViewAnnotation() async throws {
+    try await openEventDefinition.makeIntent(target: "Morning Launch Briefing").run()
+
+    // Confirm correct event page
+    let app = XCUIApplication()
+    let title = app.staticTexts["Morning Launch Briefing"]
+    XCTAssertTrue(title.waitForExistence(timeout: 5))
+
+    let annotations = try await eventEntityDefinition.viewAnnotations()
+
+    XCTAssertEqual(annotations.count, 1, "Expected exactly one view annotation")
+    XCTAssertEqual(try annotations[0].entity.title, "Morning Launch Briefing")
 }</code></pre>
           </article>
         </div>
@@ -693,7 +715,7 @@ func testEventStringQuery() async throws {
             <div class="resource__body">
               <p class="resource__meta"><i class="ph ph-play-circle" aria-hidden="true"></i> WWDC26 · 295</p>
               <h2>Validate your App Intents adoption with AppIntentsTesting</h2>
-              <p>Execute intents, inspect results, and verify Spotlight and view annotations without UI automation.</p>
+              <p>Execute intents and verify Entity indexing without UI automation.</p>
             </div>
           </a>
           <a class="resource" href="https://developer.apple.com/documentation/appintents/getting-started-with-the-app-intents-framework" target="_blank" rel="noopener noreferrer">
