@@ -394,7 +394,7 @@ struct UpdateNoteIntent {
 
   @ComputedProperty(
     customIndexingKey: CSCustomAttributeKey(
-      keyName: "com_AppIntentsTravelTracking_LandmarkEntity_continent"
+      keyName: "LandmarkEntity_continent"
     )!
   )
   var continent: String { landmark.continent }
@@ -424,9 +424,9 @@ struct UpdateNoteIntent {
                 <p>Keep your <code>CSSearchableItem</code> pipeline. Call <code>associateAppEntity(_:priority:)</code> on the attribute set. Higher priority elevates that item in suggestions and search results.</p>
               </article>
               <article class="card card--primary">
-                <p class="card__meta"><i class="ph ph-arrow-square-out" aria-hidden="true"></i> Open and reindex</p>
-                <h2>Intents for hits and repair</h2>
-                <p>Ship an <code>OpenIntent</code> so a tap opens the entity. More than ten results can use <code>ShowInAppSearchResultsIntent</code>.</p>
+                <p class="card__meta"><i class="ph ph-arrow-square-out" aria-hidden="true"></i> Interactions</p>
+                <h2>Tapping entities in spotlight</h2>
+                <p>Ship an <code>OpenIntent</code> so a tap opens your app directly in a screen that has more details about the entity. More than ten results can use <code>ShowInAppSearchResultsIntent</code>.</p>
               </article>
             </div>
           </div>
