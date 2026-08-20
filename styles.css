@@ -249,6 +249,85 @@ pre code {
   display: none;
 }
 
+/* Centred on purpose: the orb and copy sit as one group in the middle of the
+   slide rather than starting at the left padding edge. */
+.hero--with-visual {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: clamp(1.5rem, 3.5vw, 3rem);
+  row-gap: clamp(1.5rem, 4vh, 3rem);
+  max-width: none;
+}
+
+.hero__copy {
+  max-width: 48rem;
+}
+
+/* Glass treatment: the PNG carries the orb's own shading, the wrapper adds the
+   translucency, edge light and sheen. The PNG is 450px so a 150px box still has
+   real pixels to draw on at 2x and 3x. A refraction lens is Chromium-only, so
+   this stays on blur/saturate, which the controls pill already relies on. */
+.hero__orb {
+  position: relative;
+  isolation: isolate;
+  width: 150px;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+  -webkit-backdrop-filter: blur(4px) saturate(140%) brightness(104%);
+  backdrop-filter: blur(4px) saturate(140%) brightness(104%);
+  box-shadow:
+    0 5px 12px rgba(85, 86, 90, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* saturate() leaves the neutral grey body untouched and only lifts the
+   iridescent band, which is the only chromatic part of the image. */
+.hero__orb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  opacity: 0.75;
+  filter: saturate(1.9);
+}
+
+.hero__orb::before,
+.hero__orb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Specular sheen: the wet highlight a glass surface catches from above. Kept
+   tight and low so it does not wash out the orb's own dark upper half. */
+.hero__orb::before {
+  z-index: 2;
+  background: radial-gradient(44% 32% at 31% 21%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 70%);
+}
+
+/* Edge light. Masked to a hairline ring and modulated by a conic gradient so it
+   catches on two arcs instead of outlining the whole circle. */
+.hero__orb::after {
+  z-index: 3;
+  background: conic-gradient(
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 100deg,
+    rgba(255, 255, 255, 0.4) 138deg,
+    rgba(255, 255, 255, 0) 178deg,
+    rgba(255, 255, 255, 0) 278deg,
+    rgba(255, 255, 255, 0.6) 316deg,
+    rgba(255, 255, 255, 0) 352deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  -webkit-mask: radial-gradient(closest-side, transparent 90%, #000 95%);
+  mask: radial-gradient(closest-side, transparent 90%, #000 95%);
+}
+
 /* Conversation / inclusive slides */
 .compare--ux {
   grid-template-columns: 1fr 1fr;
@@ -2304,6 +2383,11 @@ body:-webkit-full-screen .hint {
 
   .hero--with-visual {
     display: flex;
+    justify-content: center;
+  }
+
+  .hero__orb {
+    width: min(150px, 24vw);
   }
 
   .shot-gallery {
