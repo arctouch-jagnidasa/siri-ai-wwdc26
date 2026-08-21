@@ -1418,26 +1418,102 @@ pre code {
   align-items: safe center;
 }
 
-/* Four panels on a uniform 2×2 grid */
-.slide[data-slide="14"] .bridge {
+/* Testing topic slides: code left, explanation cards right */
+.test-topic {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1rem;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.test-topic__code,
+.test-topic__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  min-height: 0;
+}
+
+.test-topic__code .code-panel {
+  flex: 1;
+  min-height: 0;
+}
+
+.test-topic__cards {
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+
+.test-topic__cards .card.inclusive-card {
+  margin: 0;
+  flex: 0 0 auto;
+  width: fit-content;
+  max-width: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.35rem;
+  padding: 1.5rem 1.65rem;
+  background: #fff;
+  border-color: var(--bg-secondary);
+  color: var(--grey-deep);
+  box-shadow: var(--shadow);
+}
+
+.test-topic__cards .card.inclusive-card > div:last-child {
+  flex: 0 1 auto;
+  max-width: 22rem;
+}
+
+/* Slide 15: 2×2 with System Integrations card bottom-right */
+.slide[data-slide="15"] .bridge--test-integrations {
   align-items: stretch;
   justify-items: stretch;
   grid-auto-rows: 1fr;
 }
 
-.slide[data-slide="14"] .code-panel {
+.slide[data-slide="15"] .bridge--test-integrations > .card.inclusive-card {
+  margin: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 1.25rem 1.4rem;
+  background: #fff;
+  border-color: var(--bg-secondary);
+  color: var(--grey-deep);
+  box-shadow: var(--shadow);
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* Compact code panels on testing slides */
+.slide[data-slide="13"] .code-panel,
+.slide[data-slide="14"] .code-panel,
+.slide[data-slide="15"] .code-panel {
   padding: 1rem 1.15rem;
   min-width: 0;
   min-height: 0;
 }
 
-.slide[data-slide="14"] .code-panel h2 {
+.slide[data-slide="13"] .code-panel h2,
+.slide[data-slide="14"] .code-panel h2,
+.slide[data-slide="15"] .code-panel h2 {
   margin-bottom: 0.6rem;
 }
 
+.slide[data-slide="13"] .code-panel pre,
+.slide[data-slide="13"] .code-panel pre code,
+.slide[data-slide="13"] .code-panel .hljs,
 .slide[data-slide="14"] .code-panel pre,
 .slide[data-slide="14"] .code-panel pre code,
-.slide[data-slide="14"] .code-panel .hljs {
+.slide[data-slide="14"] .code-panel .hljs,
+.slide[data-slide="15"] .code-panel pre,
+.slide[data-slide="15"] .code-panel pre code,
+.slide[data-slide="15"] .code-panel .hljs {
   font-size: clamp(0.68rem, 1.05vw, 0.88rem);
   line-height: 1.45;
 }
@@ -2426,6 +2502,7 @@ body:-webkit-full-screen .hint {
   .taxonomy,
   .taxonomy--two,
   .bridge,
+  .test-topic,
   .flow-row,
   .orchestrate,
   .index-flow,

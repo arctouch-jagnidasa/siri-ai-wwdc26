@@ -6,7 +6,7 @@ Handoff document for continuing work on the ArcTouch-branded HTML presentation. 
 
 | Path | Role |
 |------|------|
-| `index.html` | All slide markup (17 slides inside `#track`) |
+| `index.html` | All slide markup (18 slides inside `#track`) |
 | `styles.css` | ArcTouch tokens, layout, slide components |
 | `deck.js` | Horizontal carousel navigation, deep links, Swift highlighting |
 | `assets/` | Logos, illustrations, screenshots |
@@ -37,7 +37,7 @@ node tools/export-pdf.mjs /tmp/x.pdf # custom destination
 
 Requires Node 22+ (for the global `WebSocket`), Google Chrome, and `python3` with `pypdf`. Set `CHROME=/path/to/chrome` if Chrome is not in `/Applications`. The script starts its own static server and headless Chrome, prints one page per slide, merges them, and reports page count, page size, and every clickable link it found — a failed export is loud rather than silent.
 
-Output is 17 pages at 20×11.25in (the 1920×1080 canvas at 96dpi), vector text, with slide 15's resource cards as live PDF links.
+Output is 18 pages at 20×11.25in (the 1920×1080 canvas at 96dpi), vector text, with slide 16's resource cards as live PDF links.
 
 ### Why the export works the way it does
 
@@ -46,7 +46,7 @@ Each of these was hit and verified; changing them tends to break the export quie
 | Behavior | Consequence | Handling |
 |---|---|---|
 | Chrome's paginated layout blows up nonlinearly past ~8 slides (7 slides ≈ 1s, 10+ never returns) | Whole-deck print jobs hang | Print one slide per job, then merge |
-| `preferCSSPageSize` lays out at the default 8.5in paper width | Trips the narrow-viewport rules; slide 15 collapses to one column and loses 5 of 6 links | Pass explicit `paperWidth`/`paperHeight` |
+| `preferCSSPageSize` lays out at the default 8.5in paper width | Trips the narrow-viewport rules; slide 16 collapses to one column and loses 5 of 6 links | Pass explicit `paperWidth`/`paperHeight` |
 | Print media collapses multi-column slides | Wrong layout throughout | Export with `Emulation.setEmulatedMedia({ media: "screen" })` |
 | Print layout ignores `.slide` bottom padding when sizing flex children | Bottom rows expand past the page edge and get clipped | Pin each slide's children to their measured screen heights |
 | Setting `flex` on a growing child collapses it to content height | Measuring after mutating pins a too-small height, top-aligning anything the child centered (hit every slide, 89–664px) | Measure all children first, then apply; the exporter asserts pinning is geometrically inert and fails if not |
@@ -55,7 +55,7 @@ Each of these was hit and verified; changing them tends to break the export quie
 
 ### Browser Cmd+P is not a supported path
 
-Printing from the browser fails two ways, both verified: the narrow-viewport rules collapse multi-column slides (slide 15 drops to one column and loses 5 of 6 links), and a full-deck print job never returns. Scoping the responsive blocks to `@media screen` fixes the layout but not the hang, so it was left alone deliberately — the existing `@media print` block is unchanged and unused. Use `tools/export-pdf.mjs`.
+Printing from the browser fails two ways, both verified: the narrow-viewport rules collapse multi-column slides (slide 16 drops to one column and loses 5 of 6 links), and a full-deck print job never returns. Scoping the responsive blocks to `@media screen` fixes the layout but not the hang, so it was left alone deliberately — the existing `@media print` block is unchanged and unused. Use `tools/export-pdf.mjs`.
 
 ---
 
@@ -97,7 +97,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 <section class="slide" data-slide="N" aria-label="Slide N">
   <div class="slide__chrome">
     <img class="logo" src="assets/ArcTouch-logotype-color-white-background-RGB.svg" alt="ArcTouch" />
-    <span class="slide__count">NN / 17</span>
+    <span class="slide__count">NN / 18</span>
   </div>
   <header class="slide__header">
     <h1>Title with <span class="accent">emphasis</span></h1>
@@ -111,8 +111,8 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 | Class | Use |
 |-------|-----|
-| `slide--hero` | Slides 1 and 17. Orange gradient background. Use `logo--light` (orange-background SVG). No hero image currently. |
-| `slide--closing` | Slide 17 Q&A. Centers hero content and keeps the closing tagline at the bottom. |
+| `slide--hero` | Slides 1 and 18. Orange gradient background. Use `logo--light` (orange-background SVG). No hero image currently. |
+| `slide--closing` | Slide 18 Q&A. Centers hero content and keeps the closing tagline at the bottom. |
 | `is-active` | Set on slide 1 in HTML; toggled by JS. Do not rely on it in CSS for layout. |
 
 ### Typography helpers
@@ -129,8 +129,8 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 | Slide | Logo file | Class |
 |-------|-----------|-------|
-| 1, 17 (hero) | `ArcTouch-logotype-color-orange-background-RGB.svg` | `logo logo--light` |
-| 2–16 | `ArcTouch-logotype-color-white-background-RGB.svg` | `logo` |
+| 1, 18 (hero) | `ArcTouch-logotype-color-orange-background-RGB.svg` | `logo logo--light` |
+| 2–17 | `ArcTouch-logotype-color-white-background-RGB.svg` | `logo` |
 
 ---
 
@@ -140,7 +140,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 2. Renumber **every** remaining slide:
    - `data-slide="N"`
    - `aria-label="Slide N"`
-   - `.slide__count` → `NN / TOTAL` (zero-padded, e.g. `03 / 17`)
+   - `.slide__count` → `NN / TOTAL` (zero-padded, e.g. `03 / 18`)
 3. Update the HTML comment above each slide (`<!-- N. Title -->`).
 4. Set `is-active` only on slide 1 (or whichever slide should show on cold load before JS runs).
 5. Verify: open `?slide=1` through `?slide=TOTAL`, keyboard nav, progress bar width.
@@ -149,7 +149,7 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 
 ---
 
-## Slide inventory (17 slides)
+## Slide inventory (18 slides)
 
 | # | Comment | Title (h1) | Layout pattern | Key classes / assets |
 |---|---------|--------------|----------------|----------------------|
@@ -165,11 +165,12 @@ Every slide (except minor hero/closing variants) follows this skeleton:
 | 10 | Orchestration | Multi-App Orchestration | Screenshot trio + flow + cards | `.shot-pair`, `.flow-row--stacked`, `.orchestrate` |
 | 11 | Edge case | What if nothing fits a schema? | Vertical callouts | `.stack`, `.callout`, `.callout--warn` |
 | 12 | Custom intents | Custom Intents Still Count | Screenshot trio + three cards | `.split--visual-left`, `.shot-pair` |
-| 13 | App Intents testing | App Intents are now testable | 2×2 inclusive cards | `.inclusive-grid`, `.inclusive-card`, Phosphor icons |
-| 14 | Testing samples | Testing intents and entity queries | Four code panels (2×2) | `.bridge`, `.code-panel`, Swift in `<pre><code>` |
-| 15 | Useful links | Useful Links | 6 link cards with OG/video thumbs | `.resources`, `.resource`, `assets/links/*` |
-| 16 | Key takeaways | What We Learned | 3×2 takeaway grid | `.takeaways`, `.takeaway`, `.takeaway__n`, Phosphor icons |
-| 17 | Q&A | Questions? | Hero closing + tagline | `slide--hero`, `slide--closing`, `.hero--center`, `.closing-line--hero` |
+| 13 | App Intents testing — setup & run | App Intents are now testable | Code left, two cards right | `.test-topic`, `.code-panel`, `.inclusive-card` |
+| 14 | App Intents testing — fetching entities | Fetch entities and chain intents | Code left, one card right | `.test-topic`, `.code-panel`, `.inclusive-card` |
+| 15 | App Intents testing — system integrations | Test system integrations | 2×2: three code panels + card bottom-right | `.bridge.bridge--test-integrations`, `.code-panel`, `.inclusive-card` |
+| 16 | Useful links | Useful Links | 6 link cards with OG/video thumbs | `.resources`, `.resource`, `assets/links/*` |
+| 17 | Key takeaways | What We Learned | 3×2 takeaway grid | `.takeaways`, `.takeaway`, `.takeaway__n`, Phosphor icons |
+| 18 | Q&A | Questions? | Hero closing + tagline | `slide--hero`, `slide--closing`, `.hero--center`, `.closing-line--hero` |
 
 ### Removed slides (do not re-add without intent)
 
@@ -185,7 +186,7 @@ These were in the original PPTX flow and were deleted or merged:
 | Photos & Files | Removed |
 | Integration Blueprint | Removed |
 
-Current deck: **17 slides** (14 content + useful links + summary + Q&A).
+Current deck: **18 slides** (15 content + useful links + summary + Q&A).
 
 ---
 
@@ -201,6 +202,8 @@ Current deck: **17 slides** (14 content + useful links + summary + Q&A).
 | `.split--paths` | Variant for path comparison (unused currently) |
 | `.stack` | Vertical stack of callouts (slide 11) |
 | `.spotlight-index` | Right column on slide 9: `.bridge` over a three-card `.trinity` |
+| `.test-topic` | Testing slides 13–14: code left (`.test-topic__code`), cards right (`.test-topic__cards`) |
+| `.bridge--test-integrations` | Slide 15 2×2: three code panels + System Integrations card bottom-right |
 
 ### Compare columns (slide 4)
 
@@ -271,7 +274,7 @@ White cards, large orange Phosphor icon left, body right.
 - `.chips--soft` — shortcuts-restricted domains (right column)
 - `.chip-legend` exists in CSS but was removed from slide 7
 
-### Code bridge (slides 8, 9, and 14)
+### Code bridge (slides 8, 9, and 15)
 
 ```html
 <div class="bridge">
@@ -282,6 +285,10 @@ White cards, large orange Phosphor icon left, body right.
 ```
 
 Use `class="language-swift"` on `<code>` inside `<pre>`. `deck.js` runs `hljs.highlightElement` on load. Slide 9 places a phone screenshot in `.split--visual-left`, with `.spotlight-index` (`.bridge` + three-card `.trinity`) on the right.
+
+### Testing topic layout (slides 13–15)
+
+Slides 13–14 use `.test-topic` (code column left via `.test-topic__code`, cards right via `.test-topic__cards`). Slide 15 uses `.bridge.bridge--test-integrations` as a 2×2 with three `.code-panel`s and the System Integrations `.inclusive-card` in the bottom-right cell.
 
 ### Screenshots (slides 9, 10, and 12)
 
@@ -460,7 +467,7 @@ Copy an existing `<li>` in the appropriate `.chip-group`. Match icon + badge cla
 <pre><code class="language-swift">…</code></pre>
 ```
 
-Wrap in `.code-panel` if matching slide 8 / 14 styling. Slides 9 and 14 also use `.code-panel h2` captions.
+Wrap in `.code-panel` if matching slide 8 / 13–15 styling. Slides 9 and 13–15 also use `.code-panel h2` captions.
 
 ---
 
@@ -470,11 +477,11 @@ After structural edits:
 
 - [ ] Slide count in every `.slide__count` matches total
 - [ ] `data-slide` values are 1…N with no gaps
-- [ ] Only slides 1 and 17 have `slide--hero` and orange logo
+- [ ] Only slides 1 and 18 have `slide--hero` and orange logo
 - [ ] `?slide=1` and `?slide=N` load correct slides
 - [ ] Progress bar fills correctly on last slide
 - [ ] Slide 4 diagram does not overlap title on laptop + large display
-- [ ] Swift blocks on slides 8, 9, and 14 show syntax colors
+- [ ] Swift blocks on slides 8, 9, and 13–15 show syntax colors
 - [ ] Phosphor icons render (font loaded)
 - [ ] No horizontal overflow on 1280×720 and 1920×1080
 
